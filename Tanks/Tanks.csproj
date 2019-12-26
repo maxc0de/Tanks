@@ -58,6 +58,7 @@
     <Compile Include="Kolobok.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TankView.cs" />
     <EmbeddedResource Include="Tanks.resx">
       <DependentUpon>Tanks.cs</DependentUpon>
     </EmbeddedResource>

@@ -15,11 +15,15 @@ namespace Tanks
         public static Random randomNum = new Random(42);
 
         Kolobok kolobok = new Kolobok(100,100);
+
+        List<Tank> tanks = new List<Tank>();
+
+
         Graphics g;
         Bitmap bitmap;
         int speed = 10;
 
-        Direction dir = Direction.Right;
+        Direction dirKolobok = Direction.Right;
 
         public Tanks()
         {
@@ -31,11 +35,22 @@ namespace Tanks
 
             bitmap = new Bitmap(pictureBoxMain.Width, pictureBoxMain.Height);
             g = Graphics.FromImage(bitmap);
+
+            tanks.Add(new Tank(200, 200));
+            tanks.Add(new Tank(200, 400));
+            tanks.Add(new Tank(400, 200));
+            tanks.Add(new Tank(400, 400));
         }
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
-            kolobok.Move(dir);
+            kolobok.Move(dirKolobok);
+            
+            foreach(Tank tank in tanks)
+            {
+                tank.Move();
+            }
+
             Draw();
         }
 
@@ -44,20 +59,20 @@ namespace Tanks
             switch (e.KeyCode)
             {
                 case Keys.W:
-                    dir = Direction.Up;
+                    dirKolobok = Direction.Up;
                     break;
                 case Keys.A:
-                    dir = Direction.Left;
+                    dirKolobok = Direction.Left;
                     break;
                 case Keys.S:
-                    dir = Direction.Down;
+                    dirKolobok = Direction.Down;
                     break;
                 case Keys.D:
-                    dir = Direction.Right;
+                    dirKolobok = Direction.Right;
                     break;
             }
 
-            kolobok.Move(dir);
+            kolobok.Move(dirKolobok);
             Draw();
         }
 
@@ -71,6 +86,12 @@ namespace Tanks
             g.Clear(Color.White);
 
             g.DrawImage(kolobok.GetView().GetBitmap(), new Point(kolobok.X, kolobok.Y));
+
+            foreach(Tank tank in tanks)
+            {
+                g.DrawImage(tank.GetView().GetBitmap(), new Point(tank.X, tank.Y));
+            }
+            
 
             pictureBoxMain.Image = bitmap;
         }
