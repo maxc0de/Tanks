@@ -12,16 +12,21 @@ namespace Tanks
 {
     public partial class Tanks : Form
     {
+        public static Random randomNum = new Random(42);
+
         Kolobok kolobok = new Kolobok(100,100);
         Graphics g;
         Bitmap bitmap;
-        int speed = 3;
+        int speed = 10;
+
+        Direction dir = Direction.Right;
+
         public Tanks()
         {
             InitializeComponent();
 
             gameTimer.Tick += GameTimer_Tick;
-            gameTimer.Interval = 100;
+            gameTimer.Interval = 10;
             gameTimer.Start();
 
             bitmap = new Bitmap(pictureBoxMain.Width, pictureBoxMain.Height);
@@ -30,32 +35,29 @@ namespace Tanks
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
-            kolobok.Move(1,0);
+            kolobok.Move(dir);
             Draw();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            int dX = 0;
-            int dY = 0;
-
             switch (e.KeyCode)
             {
                 case Keys.W:
-                    dY = -speed;
+                    dir = Direction.Up;
                     break;
                 case Keys.A:
-                    dX = -speed;
+                    dir = Direction.Left;
                     break;
                 case Keys.S:
-                    dY = speed;
+                    dir = Direction.Down;
                     break;
                 case Keys.D:
-                    dX = speed;
+                    dir = Direction.Right;
                     break;
             }
 
-            kolobok.Move(dX, dY);
+            kolobok.Move(dir);
             Draw();
         }
 
@@ -67,7 +69,8 @@ namespace Tanks
         private void Draw()
         {
             g.Clear(Color.White);
-            g.DrawImage(new Bitmap(@"triangle.png"), new Point(kolobok.X, kolobok.Y));
+
+            g.DrawImage(kolobok.GetView().GetBitmap(), new Point(kolobok.X, kolobok.Y));
 
             pictureBoxMain.Image = bitmap;
         }

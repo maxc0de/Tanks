@@ -8,9 +8,11 @@ namespace Tanks
 {
     class Tank : GameObject
     {
-        public override void Move(int dX, int dY)
+        public void Move()
         {
-            throw new NotImplementedException();
+            int dir = Tanks.randomNum.Next(0,3);
+
+            //Move();
         }
     }
 }

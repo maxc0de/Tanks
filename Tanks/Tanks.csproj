@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObject.cs" />
+    <Compile Include="KolobokView.cs" />
     <Compile Include="Tank.cs" />
     <Compile Include="Tanks.cs">
       <SubType>Form</SubType>
