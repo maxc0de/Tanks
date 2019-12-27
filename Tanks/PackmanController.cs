@@ -15,7 +15,6 @@ namespace Tanks
         public Kolobok kolobok;
         public List<Apple> apples;
         public List<Tank> tanks;
-        public List<Bullet> kolobokBullets;
 
         int score;
 
@@ -24,7 +23,6 @@ namespace Tanks
         public void GameInit()
         {
             kolobok = new Kolobok(225, 280);
-            kolobokBullets = new List<Bullet>();
             tanks = new List<Tank>();
             apples = new List<Apple>();
 
@@ -55,23 +53,23 @@ namespace Tanks
                     break;
                 }
             }
-
-            for (int i = 0; i < kolobokBullets.Count; i++)
+            
+            for (int i = 0; i < kolobok.bullets.Count; i++)
             {
-                if (!kolobokBullets[i].Move(kolobokBullets[i].direction))
+                if (!kolobok.bullets[i].Move(kolobok.bullets[i].direction))
                 {
-                    kolobokBullets.Remove(kolobokBullets[i]);
+                    kolobok.bullets.Remove(kolobok.bullets[i]);
                 }
             }
 
             for (int i = 0; i < tanks.Count; i++)
             {
-                for (int j = 0; j < kolobokBullets.Count; j++)
+                for (int j = 0; j < kolobok.bullets.Count; j++)
                 {
-                    if (CheckCollision(tanks[i], kolobokBullets[j]))
+                    if (CheckCollision(tanks[i], kolobok.bullets[j]))
                     {
                         tanks.Remove(tanks[i]);
-                        kolobokBullets.Remove(kolobokBullets[j]);
+                        kolobok.bullets.Remove(kolobok.bullets[j]);
                     }
                 }
             }
@@ -123,7 +121,7 @@ namespace Tanks
                     currentDirection = Direction.Right;
                     break;
                 case 32:
-                    kolobokBullets.Add(new Bullet(kolobok.X + kolobok.sizeX / 2, kolobok.Y + kolobok.sizeY / 2, currentDirection, 5));
+                    kolobok.Fire();
                     break;
             }
         }

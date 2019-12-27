@@ -83,7 +83,7 @@
             this.новаяИграToolStripMenuItem.Name = "новаяИграToolStripMenuItem";
             this.новаяИграToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.новаяИграToolStripMenuItem.Text = "Новая игра";
-            this.новаяИграToolStripMenuItem.Click += new System.EventHandler(this.button1_Click);
+            this.новаяИграToolStripMenuItem.Click += new System.EventHandler(this.menu_GameStart);
             // 
             // pictureBoxMain
             // 

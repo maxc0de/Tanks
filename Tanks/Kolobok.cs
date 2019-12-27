@@ -13,11 +13,13 @@ namespace Tanks
         private int dX = 1;
 
         public Direction direction;
+        public List<Bullet> bullets;
 
         public Kolobok(int X, int Y)
         {
             this.X = X;
             this.Y = Y;
+            bullets = new List<Bullet>();
         }
 
         public void Move(Direction dir)
@@ -38,6 +40,10 @@ namespace Tanks
                     Move(dX, 0);
                     break;
             }
+        }
+        public void Fire()
+        {
+            bullets.Add(new Bullet(X + sizeX / 2, Y + sizeY / 2, direction, 5));
         }
         public override GameObjectView GetView()
         {

@@ -10,8 +10,8 @@ namespace Tanks
 {
     class Bullet : GameObject
     {
-        private int dY;
-        private int dX;
+        protected int dY;
+        protected int dX;
 
         public Direction direction;
         public int speed;
@@ -49,10 +49,6 @@ namespace Tanks
         {
             return new BulletView();
         }
-        //public override GameObjectView GetTankView()
-        //{
-        //    return new TankBulletView();
-        //}
     }
 
     class BulletView : GameObjectView
@@ -65,7 +61,25 @@ namespace Tanks
         }
     }
 
-    class TankBulletView : GameObjectView
+    class TankBullet : Bullet
+    {
+        public TankBullet(int X, int Y, Direction dir, int speed) : base(X, Y, dir, speed)
+        {
+            this.X = X;
+            this.Y = Y;
+            this.dX = speed;
+            this.dY = speed;
+            this.sizeX = 10;
+            this.sizeY = 10;
+            Move(dir);
+        }
+        public override GameObjectView GetView()
+        {
+            return new TankBulletView();
+        }
+    }
+
+    class TankBulletView : BulletView
     {
         Bitmap bmp = new Bitmap(Resources.tank_bullet);
 

@@ -16,14 +16,14 @@ namespace Tanks
 
         int i = 0;
 
-        public List<Bullet> bullets { get; set; }
+        public List<TankBullet> bullets { get; set; }
 
         public Tank(int X, int Y)
         {
             this.X = X;
             this.Y = Y;
 
-            bullets = new List<Bullet>();
+            bullets = new List<TankBullet>();
         }
 
         public void Move()
@@ -70,7 +70,7 @@ namespace Tanks
         }
         public void Fire()
         {
-            bullets.Add(new Bullet(X + sizeX / 2, Y + sizeY / 2, direction, 3));
+            bullets.Add(new TankBullet(X + sizeX / 2, Y + sizeY / 2, direction, 3));
         }
     }
 }
