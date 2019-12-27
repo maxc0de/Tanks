@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Tanks
 {
-    class PackmanController
+    public class PackmanController
     {
         public static Random randomNum = new Random(42);
 
         public event Action GameOver;
+        public event Action<int> IncreaseScore;
 
         public Kolobok kolobok;
         public List<Apple> apples;
@@ -49,7 +51,8 @@ namespace Tanks
                 if (CheckCollision(apples[i], kolobok))
                 {
                     apples.Remove(apples[i]);
-                    score += 1;
+                    IncreaseScore(score++);
+                    apples.Add(new Apple(randomNum.Next(0, Tanks.width), randomNum.Next(0, Tanks.height)));
                     break;
                 }
             }
@@ -70,6 +73,7 @@ namespace Tanks
                     {
                         tanks.Remove(tanks[i]);
                         kolobok.bullets.Remove(kolobok.bullets[j]);
+                        break;
                     }
                 }
             }

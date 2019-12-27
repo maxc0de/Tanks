@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tanks
 {
-    class Apple : GameObject
+    public class Apple : GameObject
     {
         public Apple(int X, int Y)
         {

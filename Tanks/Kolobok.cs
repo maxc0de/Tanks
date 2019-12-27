@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tanks
 {
-    class Kolobok : GameObject
+    public class Kolobok : GameObject
     {
         private int dY = 1;
         private int dX = 1;

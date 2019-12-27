@@ -36,6 +36,7 @@
             this.играToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.новаяИграToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBoxMain = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
@@ -126,6 +127,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem играToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem новаяИграToolStripMenuItem;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

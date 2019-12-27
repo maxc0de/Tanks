@@ -8,7 +8,7 @@ using Tanks.Properties;
 
 namespace Tanks
 {
-    class Bullet : GameObject
+    public class Bullet : GameObject
     {
         protected int dY;
         protected int dX;
@@ -51,7 +51,7 @@ namespace Tanks
         }
     }
 
-    class BulletView : GameObjectView
+    public class BulletView : GameObjectView
     {
         Bitmap bmp = new Bitmap(Resources.kolobok_bullet);
 
@@ -61,7 +61,7 @@ namespace Tanks
         }
     }
 
-    class TankBullet : Bullet
+    public class TankBullet : Bullet
     {
         public TankBullet(int X, int Y, Direction dir, int speed) : base(X, Y, dir, speed)
         {
@@ -79,7 +79,7 @@ namespace Tanks
         }
     }
 
-    class TankBulletView : BulletView
+    public class TankBulletView : BulletView
     {
         Bitmap bmp = new Bitmap(Resources.tank_bullet);
 

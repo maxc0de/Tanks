@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tanks
 {
-    abstract class GameObjectView
+    public abstract class GameObjectView
     {
         public abstract Bitmap GetBitmap();
     }

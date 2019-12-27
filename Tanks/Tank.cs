@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tanks
 {
-    class Tank : GameObject
+    public class Tank : GameObject
     {
         public Direction direction;
 
@@ -20,6 +20,8 @@ namespace Tanks
 
         public Tank(int X, int Y)
         {
+            Name = "Танк";
+
             this.X = X;
             this.Y = Y;
 

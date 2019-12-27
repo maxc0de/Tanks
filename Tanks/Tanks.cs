@@ -21,15 +21,13 @@ namespace Tanks
         Graphics g;
         Bitmap bitmap;
         PackmanController controller;
+        Report report;
 
         public Tanks()
         {
             InitializeComponent();
 
             this.Location = new Point(100, 100);
-
-            Report report = new Report();
-            report.Show();
 
             width = pictureBoxMain.Width;
             height = pictureBoxMain.Height;
@@ -39,13 +37,22 @@ namespace Tanks
 
             controller = new PackmanController();
             controller.GameOver += GameOver;
+            controller.IncreaseScore += IncreaseScore;
             bitmap = new Bitmap(pictureBoxMain.Width, pictureBoxMain.Height);
             g = Graphics.FromImage(bitmap);
+
+
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            //report.UpdateForm();
         }
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             controller.UpdateEntities();
+
             Draw();
         }
 
@@ -94,6 +101,16 @@ namespace Tanks
             controller.GameInit();
             Draw();
             gameTimer.Start();
+
+            report = new Report(controller.tanks);
+            report.Show();
+
+            this.Focus();
+        }
+
+        private void IncreaseScore(int score)
+        {
+            gameScore.Text = score.ToString();
         }
 
         private void GameOver()

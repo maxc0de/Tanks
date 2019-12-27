@@ -8,7 +8,7 @@ using Tanks.Properties;
 
 namespace Tanks
 {
-    class AppleView : GameObjectView
+    public class AppleView : GameObjectView
     {
         Bitmap bmp = new Bitmap(Resources.apple);
 

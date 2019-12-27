@@ -8,7 +8,7 @@ using Tanks.Properties;
 
 namespace Tanks
 {
-    class KolobokView : GameObjectView
+    public class KolobokView : GameObjectView
     {
         Bitmap bmp = new Bitmap(Resources.kolobok);
         public RotateFlipType rt;

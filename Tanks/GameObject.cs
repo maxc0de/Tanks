@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Tanks
 {
-    abstract class GameObject
+    public abstract class GameObject
     {
-        public int X;
-        public int Y;
+        public string Name { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
         public int sizeX = 25;
         public int sizeY = 25;
 
@@ -30,7 +31,7 @@ namespace Tanks
         public abstract GameObjectView GetView();
     }
 
-    enum Direction
+    public enum Direction
     {
         Up,
         Left,

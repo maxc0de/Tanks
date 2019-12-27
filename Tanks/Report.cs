@@ -12,11 +12,19 @@ namespace Tanks
 {
     public partial class Report : Form
     {
-        public Report()
+        public Report(List<Tank> objects)
         {
             InitializeComponent();
 
             this.Location = new Point(730, 100);
+
+            dataGridView1.DataSource = objects;
+
+        }
+
+        public void UpdateForm()
+        {
+            dataGridView1.Refresh();
         }
     }
 }
