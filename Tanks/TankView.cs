@@ -4,12 +4,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tanks.Properties;
 
 namespace Tanks
 {
     class TankView
     {
-        Bitmap bmp = new Bitmap(@"tank.png");
+        Bitmap bmp = new Bitmap(Resources.tank);
         public RotateFlipType rt;
 
         public TankView(Direction direction)

@@ -26,16 +26,16 @@ namespace Tanks
             switch (dir)
             {
                 case Direction.Up:
-                    Y -= dY;
+                    Move(0, -dY);
                     break;
                 case Direction.Left:
-                    X -= dX;
+                    Move(-dX, 0);
                     break;
                 case Direction.Down:
-                    Y += dY;
+                    Move(0, dY);
                     break;
                 case Direction.Right:
-                    X += dX;
+                    Move(dX, 0);
                     break;
             }
         }

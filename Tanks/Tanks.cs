@@ -18,6 +18,8 @@ namespace Tanks
 
         List<Tank> tanks = new List<Tank>();
 
+        static public int width = 600;
+        static public int height = 400;
 
         Graphics g;
         Bitmap bitmap;
@@ -29,6 +31,9 @@ namespace Tanks
         {
             InitializeComponent();
 
+            width = pictureBoxMain.Width;
+            height = pictureBoxMain.Height;
+
             gameTimer.Tick += GameTimer_Tick;
             gameTimer.Interval = 10;
             gameTimer.Start();
@@ -36,10 +41,10 @@ namespace Tanks
             bitmap = new Bitmap(pictureBoxMain.Width, pictureBoxMain.Height);
             g = Graphics.FromImage(bitmap);
 
-            tanks.Add(new Tank(200, 200));
-            tanks.Add(new Tank(200, 400));
-            tanks.Add(new Tank(400, 200));
-            tanks.Add(new Tank(400, 400));
+            tanks.Add(new Tank(150, 100));
+            tanks.Add(new Tank(150, 300));
+            tanks.Add(new Tank(450, 100));
+            tanks.Add(new Tank(450, 300));
         }
 
         private void GameTimer_Tick(object sender, EventArgs e)
@@ -48,7 +53,12 @@ namespace Tanks
             
             foreach(Tank tank in tanks)
             {
-                tank.Move();
+               tank.Move();
+               if(CheckCollision(tank, kolobok))
+                {
+                    
+                }
+
             }
 
             Draw();
@@ -94,6 +104,12 @@ namespace Tanks
             
 
             pictureBoxMain.Image = bitmap;
+        }
+
+        private bool CheckCollision(GameObject gameObject1, GameObject gameObject2)
+        {
+            return gameObject1.X + gameObject1.sizeX >= gameObject2.X && gameObject1.Y + gameObject1.sizeY >= gameObject2.Y &&
+                gameObject1.X < gameObject2.X + gameObject2.sizeY && gameObject1.Y < gameObject2.Y + gameObject2.sizeY;
         }
     }
 }

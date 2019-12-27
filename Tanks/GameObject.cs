@@ -10,11 +10,21 @@ namespace Tanks
     {
         public int X;
         public int Y;
+        public int sizeX = 25;
+        public int sizeY = 25;
 
         public virtual void Move(int dX, int dY)
         {
-            X += dX;
-            Y += dY;
+            if (X+dX >=0 && Y+dY >= 0 && X + 50 +dX < Tanks.width && Y + 50 + dY < Tanks.height)
+            {
+                X += dX;
+                Y += dY;
+            }
+            else
+            {
+                Console.WriteLine();
+            }
+
         }
     }
 

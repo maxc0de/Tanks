@@ -4,12 +4,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tanks.Properties;
 
 namespace Tanks
 {
     class KolobokView
     {
-        Bitmap bmp = new Bitmap(@"triangle.png");
+        Bitmap bmp = new Bitmap(Resources.kolobok);
         public RotateFlipType rt;
 
         public KolobokView(Direction direction)
