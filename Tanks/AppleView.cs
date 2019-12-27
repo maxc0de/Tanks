@@ -11,5 +11,10 @@ namespace Tanks
     class AppleView
     {
         Bitmap bmp = new Bitmap(Resources.apple);
+
+        public Bitmap GetBitmap()
+        {
+            return bmp;
+        }
     }
 }

@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace Tanks
 {
-    class Apple
+    class Apple : GameObject
     {
+        public Apple(int X, int Y)
+        {
+            this.X = X;
+            this.Y = Y;
+        }
+
+        public AppleView GetView()
+        {
+            return new AppleView();
+        }
     }
 }

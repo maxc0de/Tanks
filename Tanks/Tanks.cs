@@ -16,7 +16,9 @@ namespace Tanks
 
         Kolobok kolobok = new Kolobok(100,100);
 
-        List<Tank> tanks = new List<Tank>();
+
+        List<Apple> apples;
+        List<Tank> tanks;
 
         static public int width = 600;
         static public int height = 400;
@@ -24,6 +26,8 @@ namespace Tanks
         Graphics g;
         Bitmap bitmap;
         int speed = 10;
+
+        int score;
 
         Direction dirKolobok = Direction.Right;
 
@@ -36,15 +40,11 @@ namespace Tanks
 
             gameTimer.Tick += GameTimer_Tick;
             gameTimer.Interval = 10;
-            gameTimer.Start();
 
             bitmap = new Bitmap(pictureBoxMain.Width, pictureBoxMain.Height);
             g = Graphics.FromImage(bitmap);
 
-            tanks.Add(new Tank(150, 100));
-            tanks.Add(new Tank(150, 300));
-            tanks.Add(new Tank(450, 100));
-            tanks.Add(new Tank(450, 300));
+
         }
 
         private void GameTimer_Tick(object sender, EventArgs e)
@@ -59,6 +59,16 @@ namespace Tanks
                     
                 }
 
+            }
+
+            for (int i = 0; i < apples.Count; i++)
+            {
+                if (CheckCollision(apples[i], kolobok))
+                {
+                    apples.Remove(apples[i]);
+                    score += 1;
+                    break;
+                }
             }
 
             Draw();
@@ -86,10 +96,6 @@ namespace Tanks
             Draw();
         }
 
-        private void Form1_Shown(object sender, EventArgs e)
-        {
-            Draw();
-        }
 
         private void Draw()
         {
@@ -97,11 +103,17 @@ namespace Tanks
 
             g.DrawImage(kolobok.GetView().GetBitmap(), new Point(kolobok.X, kolobok.Y));
 
+            foreach(Apple apple in apples)
+            {
+                g.DrawImage(apple.GetView().GetBitmap(), new Point(apple.X, apple.Y));
+            }
+
             foreach(Tank tank in tanks)
             {
                 g.DrawImage(tank.GetView().GetBitmap(), new Point(tank.X, tank.Y));
             }
-            
+
+            gameScore.Text = score.ToString();
 
             pictureBoxMain.Image = bitmap;
         }
@@ -110,6 +122,39 @@ namespace Tanks
         {
             return gameObject1.X + gameObject1.sizeX >= gameObject2.X && gameObject1.Y + gameObject1.sizeY >= gameObject2.Y &&
                 gameObject1.X < gameObject2.X + gameObject2.sizeY && gameObject1.Y < gameObject2.Y + gameObject2.sizeY;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tanks = new List<Tank>();
+            apples = new List<Apple>();
+            score = 0;
+
+            tanks.Add(new Tank(150, 100));
+            tanks.Add(new Tank(150, 200));
+            tanks.Add(new Tank(350, 100));
+            tanks.Add(new Tank(350, 200));
+
+            do
+            {
+                apples.Add(new Apple(randomNum.Next(0, width), randomNum.Next(0, height)));
+            }
+            while (apples.Count < 4);
+
+            Draw();
+
+            gameTimer.Start();
+
+            button1.Text = "Перезапустить";
+        }
+
+        private void Tanks_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+
         }
     }
 }
