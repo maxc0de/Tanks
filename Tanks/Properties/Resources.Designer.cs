@@ -83,9 +83,29 @@ namespace Tanks.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap kolobok_bullet {
+            get {
+                object obj = ResourceManager.GetObject("kolobok_bullet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap tank {
             get {
                 object obj = ResourceManager.GetObject("tank", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tank_bullet {
+            get {
+                object obj = ResourceManager.GetObject("tank_bullet", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

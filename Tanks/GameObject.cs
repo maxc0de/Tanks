@@ -13,19 +13,21 @@ namespace Tanks
         public int sizeX = 25;
         public int sizeY = 25;
 
-        public virtual void Move(int dX, int dY)
+        public virtual bool Move(int dX, int dY)
         {
-            if (X+dX >=0 && Y+dY >= 0 && X + 50 +dX < Tanks.width && Y + 50 + dY < Tanks.height)
+            if (X+dX >=0 && Y+dY >= 0 && X + sizeX +dX < Tanks.width && Y + sizeY + dY < Tanks.height)
             {
                 X += dX;
                 Y += dY;
+                return true;
             }
             else
             {
-                Console.WriteLine();
+                return false;
             }
 
         }
+        public abstract GameObjectView GetView();
     }
 
     enum Direction

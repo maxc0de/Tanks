@@ -8,12 +8,12 @@ using Tanks.Properties;
 
 namespace Tanks
 {
-    class KolobokView
+    class KolobokView : GameObjectView
     {
         Bitmap bmp = new Bitmap(Resources.kolobok);
         public RotateFlipType rt;
 
-        public KolobokView(Direction direction)
+        public  KolobokView(Direction direction)
         {
             switch(direction)
             {
@@ -29,7 +29,7 @@ namespace Tanks
             }
         }
 
-        public Bitmap GetBitmap()
+        public override Bitmap GetBitmap()
         {
             bmp.RotateFlip(rt);
 

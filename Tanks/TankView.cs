@@ -8,7 +8,7 @@ using Tanks.Properties;
 
 namespace Tanks
 {
-    class TankView
+    class TankView : GameObjectView
     {
         Bitmap bmp = new Bitmap(Resources.tank);
         public RotateFlipType rt;
@@ -29,7 +29,7 @@ namespace Tanks
             }
         }
 
-        public Bitmap GetBitmap()
+        public override Bitmap GetBitmap()
         {
             bmp.RotateFlip(rt);
 

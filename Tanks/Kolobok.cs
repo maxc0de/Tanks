@@ -39,7 +39,7 @@ namespace Tanks
                     break;
             }
         }
-        public KolobokView GetView()
+        public override GameObjectView GetView()
         {
             return new KolobokView(direction);
         }

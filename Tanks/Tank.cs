@@ -12,27 +12,37 @@ namespace Tanks
 
         private int dY = 1;
         private int dX = 1;
+        private Direction nextDirection;
 
         int i = 0;
+
+        public List<Bullet> bullets { get; set; }
 
         public Tank(int X, int Y)
         {
             this.X = X;
             this.Y = Y;
+
+            bullets = new List<Bullet>();
         }
 
         public void Move()
         {
             if (i == 50)
             {
-                direction = (Direction)Tanks.randomNum.Next(0, 4);
+                nextDirection = (Direction)PackmanController.randomNum.Next(0, 4);
+                if (nextDirection != direction)
+                {
+                    direction = nextDirection;
+                    Fire();
+                }
+
                 i = 0;
             }
             else
             {
                 i++;
             }
-
 
             Move(direction);
         }
@@ -54,9 +64,13 @@ namespace Tanks
                     break;
             }
         }
-        public TankView GetView()
+        public override GameObjectView GetView()
         {
             return new TankView(direction);
+        }
+        public void Fire()
+        {
+            bullets.Add(new Bullet(X + sizeX / 2, Y + sizeY / 2, direction, 3));
         }
     }
 }
