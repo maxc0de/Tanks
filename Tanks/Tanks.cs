@@ -38,21 +38,18 @@ namespace Tanks
             controller = new PackmanController();
             controller.GameOver += GameOver;
             controller.IncreaseScore += IncreaseScore;
+
             bitmap = new Bitmap(pictureBoxMain.Width, pictureBoxMain.Height);
             g = Graphics.FromImage(bitmap);
 
-
-        }
-
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            //report.UpdateForm();
+            report = new Report();
+            report.Show();
         }
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             controller.UpdateEntities();
-
+            report.UpdateGrid(controller.tanks);
             Draw();
         }
 
@@ -102,8 +99,7 @@ namespace Tanks
             Draw();
             gameTimer.Start();
 
-            report = new Report(controller.tanks);
-            report.Show();
+            report.UpdateGrid(controller.tanks);
 
             this.Focus();
         }
@@ -119,4 +115,5 @@ namespace Tanks
             MessageBox.Show("Конец игры");
         }
     }
+
 }
