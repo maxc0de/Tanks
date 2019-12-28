@@ -116,6 +116,7 @@ namespace Tanks
             Draw();
             gameTimer.Start();
             labelGameOver.Text = "";
+            gameScore.Text = "0";
             report.UpdateGrid(controller.gameObjects);
 
             this.Focus();
