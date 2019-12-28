@@ -21,7 +21,7 @@ namespace Tanks
             this.Y = Y;
             this.dX = speed;
             this.dY = speed;
-            this.sizeX = 10;
+            sizeX = 10;
             this.sizeY = 10;
             Move(dir);
         }

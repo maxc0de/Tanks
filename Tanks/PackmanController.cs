@@ -29,22 +29,30 @@ namespace Tanks
             tanks = new List<Tank>();
             apples = new List<Apple>();
             walls = new List<Wall>();
-            walls.Add(new Wall(Tanks.width/2, 0, 30, 250));
-            //walls.Add(new Wall(200, 100, 30, 70));
-            //walls.Add(new Wall(300, 100, 30, 70));
+
+            walls.Add(new Wall((int)Tanks.width/4, 100, 30, 250));
+            walls.Add(new Wall((int)Tanks.width/2, 0, 30, 250));
+            walls.Add(new Wall((int)(Tanks.width/1.25), 100, 30, 250));
 
             score = 0;
 
             do
             {
-                Tank tank = new Tank(randomNum.Next(0, Tanks.width), randomNum.Next(0, Tanks.height/2));
+               Tank tank = new Tank(randomNum.Next(0, (int)(Tanks.width * 0.9)), randomNum.Next(0, (int)Tanks.height/2));
+               bool noCollision = true;
 
-               foreach(Wall wall in walls)
+               for (int i=0; i<walls.Count; i++)
                {
-                    if(!CheckCollision(wall, tank))
+                    if(CheckCollision(walls[i], tank))
                     {
-                        tanks.Add(tank);
+                        noCollision = false;
+                        break;
                     }
+               }
+               if (noCollision)
+               {
+                    tanks.Add(tank);
+                    noCollision = true;
                }
             }
             while (tanks.Count < Tanks.numberTanks);
@@ -199,14 +207,21 @@ namespace Tanks
         {
             do
             {
-                Apple apple = new Apple(randomNum.Next(0, Tanks.width), randomNum.Next(0, Tanks.height));
+                Apple apple = new Apple(randomNum.Next(0, (int)(Tanks.width * 0.9)), randomNum.Next(0, (int)(Tanks.height * 0.9)));
+                bool noCollision = true;
 
-                foreach (Wall wall in walls)
+                for (int i = 0; i < walls.Count; i++)
                 {
-                    if (!CheckCollision(wall, apple))
+                    if (CheckCollision(walls[i], apple))
                     {
-                        apples.Add(apple);
+                        noCollision = false;
+                        break;
                     }
+                }
+                if (noCollision)
+                {
+                    apples.Add(apple);
+                    noCollision = true;
                 }
             }
             while (apples.Count < num);

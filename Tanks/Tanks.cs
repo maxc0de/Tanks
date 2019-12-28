@@ -12,8 +12,8 @@ namespace Tanks
 {
     public partial class Tanks : Form
     {
-        static public int width;
-        static public int height;
+        static public double width;
+        static public double height;
         static public int numberTanks = 3;
         static public int numberApples = 3;
         static public int speed;
