@@ -25,6 +25,9 @@ namespace Tanks
             this.X = X;
             this.Y = Y;
 
+            sizeX = 38;
+            sizeY = 38;
+
             bullets = new List<TankBullet>();
         }
 

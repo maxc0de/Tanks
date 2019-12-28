@@ -14,8 +14,8 @@ namespace Tanks
     {
         static public int width;
         static public int height;
-        static public int numberTanks = 5;
-        static public int numberApples = 5;
+        static public int numberTanks = 3;
+        static public int numberApples = 3;
         static public int speed;
 
         Graphics g;
@@ -64,6 +64,7 @@ namespace Tanks
             g.Clear(Color.White);
 
             DrawEntity(controller.kolobok);
+            DrawEntities(controller.walls);
 
             DrawEntities(controller.apples);
             DrawEntities(controller.kolobok.bullets);

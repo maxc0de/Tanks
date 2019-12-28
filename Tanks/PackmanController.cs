@@ -17,6 +17,7 @@ namespace Tanks
         public Kolobok kolobok;
         public List<Apple> apples;
         public List<Tank> tanks;
+        public List<Wall> walls;
 
         int score;
 
@@ -27,33 +28,74 @@ namespace Tanks
             kolobok = new Kolobok(225, 280);
             tanks = new List<Tank>();
             apples = new List<Apple>();
+            walls = new List<Wall>();
+            walls.Add(new Wall(Tanks.width/2, 0, 30, 250));
+            //walls.Add(new Wall(200, 100, 30, 70));
+            //walls.Add(new Wall(300, 100, 30, 70));
 
             score = 0;
 
             do
             {
-                tanks.Add(new Tank(randomNum.Next(0, Tanks.width), randomNum.Next(0, Tanks.height)));
+                Tank tank = new Tank(randomNum.Next(0, Tanks.width), randomNum.Next(0, Tanks.height/2));
+
+               foreach(Wall wall in walls)
+               {
+                    if(!CheckCollision(wall, tank))
+                    {
+                        tanks.Add(tank);
+                    }
+               }
             }
             while (tanks.Count < Tanks.numberTanks);
 
-            do
-            {
-                apples.Add(new Apple(randomNum.Next(0, Tanks.width), randomNum.Next(0, Tanks.height)));
-            }
-            while (apples.Count < Tanks.numberApples);
+            GenerateApple(Tanks.numberApples);
         }
         public void UpdateEntities()
         {
             kolobok.Move(currentDirection);
 
+            //Проверка взаимодействий с яблоками
             for (int i = 0; i < apples.Count; i++)
             {
                 if (CheckCollision(apples[i], kolobok))
                 {
                     apples.Remove(apples[i]);
-                    IncreaseScore(score++);
-                    apples.Add(new Apple(randomNum.Next(0, Tanks.width), randomNum.Next(0, Tanks.height)));
+                    IncreaseScore(++score);
+                    GenerateApple(1);
                     break;
+                }
+            }
+
+            //Проверка взаимодействия со стенами
+            for(int i = 0; i < walls.Count; i++)
+            {
+                if (CheckCollision(walls[i], kolobok))
+                {
+                    kolobok.Collision();
+                }
+
+                for (int j = 0; j < tanks.Count; j++)
+                {
+                    if(CheckCollision(walls[i], tanks[j]))
+                    {
+                        if (tanks[j].direction == Direction.Left)
+                        {
+                            tanks[j].direction = Direction.Right;
+                        }
+                        else if (tanks[j].direction == Direction.Right)
+                        {
+                            tanks[j].direction = Direction.Left;
+                        }
+                        else if (tanks[j].direction == Direction.Up)
+                        {
+                            tanks[j].direction = Direction.Down;
+                        }
+                        else if (tanks[j].direction == Direction.Down)
+                        {
+                            tanks[j].direction = Direction.Up;
+                        }
+                    }
                 }
             }
             
@@ -62,6 +104,18 @@ namespace Tanks
                 if (!kolobok.bullets[i].Move(kolobok.bullets[i].direction))
                 {
                     kolobok.bullets.Remove(kolobok.bullets[i]);
+                }
+
+                else if (kolobok.bullets.Count > 0)
+                {
+                    for (int j = 0; j < walls.Count; j++)
+                    {
+                        if (CheckCollision(walls[j], kolobok.bullets[i]))
+                        {
+                            kolobok.bullets.Remove(kolobok.bullets[i]);
+                            break;
+                        }
+                    }
                 }
             }
 
@@ -94,9 +148,20 @@ namespace Tanks
                         GameOver();
                         break;
                     }
-                    if (!tank.bullets[i].Move(tank.bullets[i].direction))
+                    else if (!tank.bullets[i].Move(tank.bullets[i].direction))
                     {
                         tank.bullets.Remove(tank.bullets[i]);
+                    }
+                    else
+                    {
+                        for (int j = 0; j < walls.Count; j++)
+                        {
+                            if (CheckCollision(tank.bullets[i], walls[j]))
+                            {
+                                tank.bullets.Remove(tank.bullets[i]);
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -105,7 +170,7 @@ namespace Tanks
         private bool CheckCollision(GameObject gameObject1, GameObject gameObject2)
         {
             return gameObject1.X + gameObject1.sizeX >= gameObject2.X && gameObject1.Y + gameObject1.sizeY >= gameObject2.Y &&
-                gameObject1.X < gameObject2.X + gameObject2.sizeY && gameObject1.Y < gameObject2.Y + gameObject2.sizeY;
+                gameObject1.X < gameObject2.X + gameObject2.sizeX && gameObject1.Y < gameObject2.Y + gameObject2.sizeY;
         }
 
         public void UserControl(int keyCode)
@@ -128,6 +193,23 @@ namespace Tanks
                     kolobok.Fire();
                     break;
             }
+        }
+
+        private void GenerateApple(int num)
+        {
+            do
+            {
+                Apple apple = new Apple(randomNum.Next(0, Tanks.width), randomNum.Next(0, Tanks.height));
+
+                foreach (Wall wall in walls)
+                {
+                    if (!CheckCollision(wall, apple))
+                    {
+                        apples.Add(apple);
+                    }
+                }
+            }
+            while (apples.Count < num);
         }
     }
 }

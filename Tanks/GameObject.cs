@@ -14,12 +14,19 @@ namespace Tanks
         public int sizeX = 25;
         public int sizeY = 25;
 
+        protected int dY = 0;
+        protected int dX = 0;
+
         public virtual bool Move(int dX, int dY)
         {
             if (X+dX >=0 && Y+dY >= 0 && X + sizeX +dX < Tanks.width && Y + sizeY + dY < Tanks.height)
             {
                 X += dX;
                 Y += dY;
+
+                this.dX = dX;
+                this.dY = dY;
+
                 return true;
             }
             else

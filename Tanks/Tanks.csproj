@@ -70,6 +70,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TankView.cs" />
+    <Compile Include="Wall.cs" />
+    <Compile Include="WallView.cs" />
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
     </EmbeddedResource>

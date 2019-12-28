@@ -9,8 +9,11 @@ namespace Tanks
 {
     public class Kolobok : GameObject
     {
-        private int dY = 1;
-        private int dX = 1;
+
+        int xStartBullet = 0;
+        int yStartBullet = 0;
+
+        int step = 1;
 
         public Direction direction;
         public List<Bullet> bullets;
@@ -19,6 +22,10 @@ namespace Tanks
         {
             this.X = X;
             this.Y = Y;
+
+            sizeX = 38;
+            sizeY = 38;
+
             bullets = new List<Bullet>();
         }
 
@@ -28,26 +35,38 @@ namespace Tanks
             switch (dir)
             {
                 case Direction.Up:
-                    Move(0, -dY);
+                    Move(0, -step);
+                    xStartBullet = X + sizeX/2 - 5;
+                    yStartBullet = Y - 5;
                     break;
                 case Direction.Left:
-                    Move(-dX, 0);
+                    Move(-step, 0);
+                    xStartBullet = X - 5;
+                    yStartBullet = Y + sizeY/2 - 5;
                     break;
                 case Direction.Down:
-                    Move(0, dY);
+                    Move(0, step);
+                    xStartBullet = X + sizeX / 2 - 5;
+                    yStartBullet = Y + sizeY -5;
                     break;
                 case Direction.Right:
-                    Move(dX, 0);
+                    Move(step, 0);
+                    xStartBullet = X + sizeX - 5;
+                    yStartBullet = Y + sizeY / 2 - 5;
                     break;
             }
         }
         public void Fire()
         {
-            bullets.Add(new Bullet(X + sizeX / 2, Y + sizeY / 2, direction, 5));
+            bullets.Add(new Bullet(xStartBullet, yStartBullet, direction, 5));
         }
         public override GameObjectView GetView()
         {
             return new KolobokView(direction);
+        }
+        public void Collision()
+        {
+            Move(-dX, -dY);
         }
     }
 }
