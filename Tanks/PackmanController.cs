@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tanks.Properties;
 
 namespace Tanks
 {
@@ -32,12 +34,17 @@ namespace Tanks
             apples = new List<Apple>();
             walls = new List<Wall>();
 
-            walls.Add(new Wall((int)Tanks.width/4, 100, 30, 100));
-            walls.Add(new Wall((int)Tanks.width/2, 0, 30, 100));
-            walls.Add(new Wall((int)(Tanks.width/1.25), 100, 30, 100));
+            //Стены
+            string[] arStr = File.ReadAllLines(@"Resources\level.txt");
+            foreach(string str in arStr)
+            {
+                int[] features = str.Split(new char[] { ';' }).ToList().Select(s => Convert.ToInt32(s)).ToArray();
+                walls.Add(new Wall(features));
+            }
 
             score = 0;
 
+            //Генерация танков
             do
             {
                Tank tank = new Tank(randomNum.Next(0, (int)(Tanks.width * 0.9)), randomNum.Next(0, (int)Tanks.height/2));

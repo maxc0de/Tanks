@@ -117,5 +117,10 @@
   <ItemGroup>
     <None Include="Resources\tank_bullet.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\level.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

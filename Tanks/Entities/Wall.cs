@@ -18,6 +18,15 @@ namespace Tanks
             this.sizeX = sizeX;
             this.sizeY = sizeY;
         }
+        public Wall(int[] features)
+        {
+            Name = "Стена";
+
+            this.X = features[0];        
+            this.Y = features[1];        
+            this.sizeX = features[2];        
+            this.sizeY = features[3];        
+        }
         public override GameObjectView GetView()
         {
             return new WallView(sizeX, sizeY);
