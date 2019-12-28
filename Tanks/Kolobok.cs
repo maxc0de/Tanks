@@ -9,7 +9,6 @@ namespace Tanks
 {
     public class Kolobok : GameObject
     {
-
         int xStartBullet = 0;
         int yStartBullet = 0;
 
@@ -20,6 +19,8 @@ namespace Tanks
 
         public Kolobok(int X, int Y)
         {
+            Name = "Колобок";
+
             this.X = X;
             this.Y = Y;
 

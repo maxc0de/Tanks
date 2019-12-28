@@ -12,28 +12,21 @@ namespace Tanks
 {
     public partial class Report : Form
     {
-        DataGridViewEx viewEx;
         public Report()
         {
             InitializeComponent();
-
-            this.Location = new Point(730, 100);
-            viewEx = new DataGridViewEx();
-            viewEx.Dock = DockStyle.Fill;
-            viewEx.VirtualMode = true;
-
-            this.Controls.Add(viewEx);
-            
+            this.Location = new Point(730, 100);            
         }
 
-        public void UpdateGrid(List<Tank> objects)
+        public void UpdateGrid(List<GameObject> objects)
         {
-            viewEx.DataSource = objects;
+            dataGridViewEx1.DataSource = objects;
+            dataGridViewEx1.Refresh();
         }
-    }
 
-    public class DataGridViewEx : DataGridView
-    {
-        protected override bool DoubleBuffered { get => true; }
+        private void dataGridViewEx1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
     }
 }

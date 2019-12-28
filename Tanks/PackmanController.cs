@@ -19,6 +19,8 @@ namespace Tanks
         public List<Tank> tanks;
         public List<Wall> walls;
 
+        public List<GameObject> gameObjects = new List<GameObject>();
+
         int score;
 
         Direction currentDirection = Direction.Right;
@@ -30,9 +32,9 @@ namespace Tanks
             apples = new List<Apple>();
             walls = new List<Wall>();
 
-            walls.Add(new Wall((int)Tanks.width/4, 100, 30, 250));
-            walls.Add(new Wall((int)Tanks.width/2, 0, 30, 250));
-            walls.Add(new Wall((int)(Tanks.width/1.25), 100, 30, 250));
+            walls.Add(new Wall((int)Tanks.width/4, 100, 30, 100));
+            walls.Add(new Wall((int)Tanks.width/2, 0, 30, 100));
+            walls.Add(new Wall((int)(Tanks.width/1.25), 100, 30, 100));
 
             score = 0;
 
@@ -58,6 +60,8 @@ namespace Tanks
             while (tanks.Count < Tanks.numberTanks);
 
             GenerateApple(Tanks.numberApples);
+
+            GetList();
         }
         public void UpdateEntities()
         {
@@ -121,6 +125,11 @@ namespace Tanks
                         if (CheckCollision(walls[j], kolobok.bullets[i]))
                         {
                             kolobok.bullets.Remove(kolobok.bullets[i]);
+                            walls[j].hitCount += 1;
+                            if (walls[j].hitCount > 5)
+                            {
+                                walls.Remove(walls[j]);
+                            }
                             break;
                         }
                     }
@@ -167,12 +176,18 @@ namespace Tanks
                             if (CheckCollision(tank.bullets[i], walls[j]))
                             {
                                 tank.bullets.Remove(tank.bullets[i]);
+                                walls[j].hitCount += 1;
+                                if (walls[j].hitCount > 5)
+                                {
+                                    walls.Remove(walls[j]);
+                                }
                                 break;
                             }
                         }
                     }
                 }
             }
+            GetList();
         }
 
         private bool CheckCollision(GameObject gameObject1, GameObject gameObject2)
@@ -185,19 +200,19 @@ namespace Tanks
         {
             switch (keyCode)
             {
-                case 87:
+                case 1:
                     currentDirection = Direction.Up;
                     break;
-                case 65:
+                case 2:
                     currentDirection = Direction.Left;
                     break;
-                case 83:
+                case 3:
                     currentDirection = Direction.Down;
                     break;
-                case 68:
+                case 4:
                     currentDirection = Direction.Right;
                     break;
-                case 32:
+                case 5:
                     kolobok.Fire();
                     break;
             }
@@ -224,7 +239,16 @@ namespace Tanks
                     noCollision = true;
                 }
             }
-            while (apples.Count < num);
+            while (apples.Count < Tanks.numberApples);
+        }
+
+        public void GetList()
+        {
+            gameObjects.Clear();
+            gameObjects.Add(kolobok);
+            gameObjects.AddRange(tanks);
+            gameObjects.AddRange(apples);
+            gameObjects.AddRange(walls);
         }
     }
 }

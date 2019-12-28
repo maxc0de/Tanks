@@ -10,6 +10,8 @@ namespace Tanks
     {
         public Apple(int X, int Y)
         {
+            Name = "Яблоко";
+
             this.X = X;
             this.Y = Y;
         }

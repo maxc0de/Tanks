@@ -49,13 +49,33 @@ namespace Tanks
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             controller.UpdateEntities();
-            report.UpdateGrid(controller.tanks);
+            report.UpdateGrid(controller.gameObjects);
             Draw();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            controller.UserControl(e.KeyValue);
+            if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
+            {
+                controller.UserControl(1);
+            }
+            if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
+            {
+                controller.UserControl(2);
+            }
+            if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
+            {
+                controller.UserControl(3);
+            }
+            if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
+            {
+                controller.UserControl(4);
+            }
+            if (e.KeyCode == Keys.Space)
+            {
+                controller.UserControl(5);
+            }
+
             Draw();
         }
 
@@ -63,12 +83,15 @@ namespace Tanks
         {
             g.Clear(Color.White);
 
-            DrawEntity(controller.kolobok);
-            DrawEntities(controller.walls);
+            //DrawEntity(controller.kolobok);
+            //DrawEntities(controller.walls);
 
-            DrawEntities(controller.apples);
+            //DrawEntities(controller.apples);
+
+            DrawEntities(controller.gameObjects);
+
             DrawEntities(controller.kolobok.bullets);
-            DrawEntities(controller.tanks);
+            //DrawEntities(controller.tanks);
 
             foreach (Tank tank in controller.tanks)
             {
@@ -100,7 +123,7 @@ namespace Tanks
             Draw();
             gameTimer.Start();
 
-            report.UpdateGrid(controller.tanks);
+            report.UpdateGrid(controller.gameObjects);
 
             this.Focus();
         }
@@ -114,6 +137,11 @@ namespace Tanks
         {
             gameTimer.Stop();
             MessageBox.Show("Конец игры");
+        }
+
+        public class DataGridViewEx : DataGridView
+        {
+            protected override bool DoubleBuffered { get => true; }
         }
     }
 
