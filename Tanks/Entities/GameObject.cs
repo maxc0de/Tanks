@@ -8,14 +8,15 @@ namespace Tanks
 {
     public abstract class GameObject
     {
+        public int sizeX;
+        public int sizeY;
+
+        protected int dX;
+        protected int dY;
+
         public string Name { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
-        public int sizeX = 25;
-        public int sizeY = 25;
-
-        protected int dY = 0;
-        protected int dX = 0;
 
         public virtual bool Move(int dX, int dY)
         {

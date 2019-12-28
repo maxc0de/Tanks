@@ -83,15 +83,8 @@ namespace Tanks
         {
             g.Clear(Color.White);
 
-            //DrawEntity(controller.kolobok);
-            //DrawEntities(controller.walls);
-
-            //DrawEntities(controller.apples);
-
             DrawEntities(controller.gameObjects);
-
             DrawEntities(controller.kolobok.bullets);
-            //DrawEntities(controller.tanks);
 
             foreach (Tank tank in controller.tanks)
             {
@@ -122,7 +115,7 @@ namespace Tanks
             controller.GameInit();
             Draw();
             gameTimer.Start();
-
+            labelGameOver.Text = "";
             report.UpdateGrid(controller.gameObjects);
 
             this.Focus();
@@ -136,7 +129,7 @@ namespace Tanks
         private void GameOver()
         {
             gameTimer.Stop();
-            MessageBox.Show("Конец игры");
+            labelGameOver.Text = "Игра окончена!";
         }
 
         public class DataGridViewEx : DataGridView

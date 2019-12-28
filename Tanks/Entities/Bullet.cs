@@ -10,19 +10,24 @@ namespace Tanks
 {
     public class Bullet : GameObject
     {
-        protected int dY;
         protected int dX;
+        protected int dY;
+
+        bool playerBullet;
 
         public Direction direction;
         public int speed;
-        public Bullet(int X, int Y, Direction dir, int speed)
+        public Bullet(int X, int Y, Direction dir, int speed, bool playerBullet)
         {
             this.X = X;
             this.Y = Y;
             this.dX = speed;
             this.dY = speed;
-            sizeX = 10;
+            this.sizeX = 10;
             this.sizeY = 10;
+
+            this.playerBullet = playerBullet;
+
             Move(dir);
         }
         public bool Move(Direction dir)
@@ -47,44 +52,21 @@ namespace Tanks
         }
         public override GameObjectView GetView()
         {
-            return new BulletView();
+            return new BulletView(playerBullet);
         }
     }
 
     public class BulletView : GameObjectView
     {
-        Bitmap bmp = new Bitmap(Resources.kolobok_bullet);
+        bool enemyBullet;
+        public BulletView(bool enemyBullet)
+        {
+            this.enemyBullet = enemyBullet;
+        }
 
         public override Bitmap GetBitmap()
         {
-            return bmp;
-        }
-    }
-
-    public class TankBullet : Bullet
-    {
-        public TankBullet(int X, int Y, Direction dir, int speed) : base(X, Y, dir, speed)
-        {
-            this.X = X;
-            this.Y = Y;
-            this.dX = speed;
-            this.dY = speed;
-            this.sizeX = 10;
-            this.sizeY = 10;
-            Move(dir);
-        }
-        public override GameObjectView GetView()
-        {
-            return new TankBulletView();
-        }
-    }
-
-    public class TankBulletView : BulletView
-    {
-        Bitmap bmp = new Bitmap(Resources.tank_bullet);
-
-        public override Bitmap GetBitmap()
-        {
+            Bitmap bmp = enemyBullet? new Bitmap(Resources.kolobok_bullet) : new Bitmap(Resources.tank_bullet);
             return bmp;
         }
     }

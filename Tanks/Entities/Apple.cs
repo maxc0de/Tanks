@@ -12,6 +12,9 @@ namespace Tanks
         {
             Name = "Яблоко";
 
+            sizeX = 20;
+            sizeY = 20;
+
             this.X = X;
             this.Y = Y;
         }

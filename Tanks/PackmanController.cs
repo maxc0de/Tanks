@@ -59,7 +59,7 @@ namespace Tanks
             }
             while (tanks.Count < Tanks.numberTanks);
 
-            GenerateApple(Tanks.numberApples);
+            GenerateApple();
 
             GetList();
         }
@@ -74,7 +74,7 @@ namespace Tanks
                 {
                     apples.Remove(apples[i]);
                     IncreaseScore(++score);
-                    GenerateApple(1);
+                    GenerateApple();
                     break;
                 }
             }
@@ -213,12 +213,12 @@ namespace Tanks
                     currentDirection = Direction.Right;
                     break;
                 case 5:
-                    kolobok.Fire();
+                    kolobok.Fire(5);
                     break;
             }
         }
 
-        private void GenerateApple(int num)
+        private void GenerateApple()
         {
             do
             {

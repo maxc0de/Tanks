@@ -36,6 +36,7 @@
             this.играToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.новаяИграToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBoxMain = new System.Windows.Forms.PictureBox();
+            this.labelGameOver = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
@@ -94,11 +95,22 @@
             this.pictureBoxMain.TabIndex = 0;
             this.pictureBoxMain.TabStop = false;
             // 
+            // labelGameOver
+            // 
+            this.labelGameOver.AutoSize = true;
+            this.labelGameOver.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelGameOver.ForeColor = System.Drawing.Color.Red;
+            this.labelGameOver.Location = new System.Drawing.Point(456, 74);
+            this.labelGameOver.Name = "labelGameOver";
+            this.labelGameOver.Size = new System.Drawing.Size(0, 20);
+            this.labelGameOver.TabIndex = 5;
+            // 
             // Tanks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(607, 361);
+            this.Controls.Add(this.labelGameOver);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gameScore);
             this.Controls.Add(this.pictureBoxMain);
@@ -126,6 +138,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem играToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem новаяИграToolStripMenuItem;
+        private System.Windows.Forms.Label labelGameOver;
     }
 }
 

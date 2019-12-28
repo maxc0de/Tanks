@@ -46,12 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Apple.cs" />
-    <Compile Include="AppleView.cs" />
-    <Compile Include="Bullet.cs" />
-    <Compile Include="GameObject.cs" />
-    <Compile Include="GameObjectView.cs" />
-    <Compile Include="KolobokView.cs" />
+    <Compile Include="Entities\Apple.cs" />
+    <Compile Include="Views\AppleView.cs" />
+    <Compile Include="Entities\Bullet.cs" />
+    <Compile Include="Entities\GameObject.cs" />
+    <Compile Include="Views\GameObjectView.cs" />
+    <Compile Include="Views\KolobokView.cs" />
     <Compile Include="PackmanController.cs" />
     <Compile Include="Report.cs">
       <SubType>Form</SubType>
@@ -59,19 +59,20 @@
     <Compile Include="Report.Designer.cs">
       <DependentUpon>Report.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tank.cs" />
+    <Compile Include="Entities\Tank.cs" />
     <Compile Include="Tanks.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Tanks.Designer.cs">
       <DependentUpon>Tanks.cs</DependentUpon>
     </Compile>
-    <Compile Include="Kolobok.cs" />
+    <Compile Include="Entities\Kolobok.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TankView.cs" />
-    <Compile Include="Wall.cs" />
-    <Compile Include="WallView.cs" />
+    <Compile Include="Views\TankView.cs" />
+    <Compile Include="Entities\Wall.cs" />
+    <Compile Include="Views\WallView.cs" />
+    <Compile Include="Entities\WarVehicle.cs" />
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
     </EmbeddedResource>
