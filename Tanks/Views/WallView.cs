@@ -16,7 +16,7 @@ namespace Tanks
 
             using (Graphics gr = Graphics.FromImage(bmp))
             {
-                gr.FillRectangle(Brushes.BurlyWood, 0, 0, sizeX, sizeY);
+                gr.FillRectangle(Brushes.DarkRed, 0, 0, sizeX, sizeY);
             }
         }
         public override Bitmap GetBitmap()

@@ -11,6 +11,8 @@ namespace Tanks
         int xStartBullet = 0;
         int yStartBullet = 0;
 
+        DateTime lastFire = new DateTime();
+
         protected bool playerBullet = true;
 
         int step = 1;
@@ -48,7 +50,18 @@ namespace Tanks
 
         public void Fire(int speedFire)
         {
-            bullets.Add(new Bullet(xStartBullet, yStartBullet, direction, speedFire, playerBullet));
+            if  (lastFire == new DateTime())
+            {
+                lastFire = DateTime.Now;
+                bullets.Add(new Bullet(xStartBullet, yStartBullet, direction, speedFire, playerBullet));
+            }
+            else if(DateTime.Now - lastFire > TimeSpan.FromMilliseconds(500))
+            {
+                bullets.Add(new Bullet(xStartBullet, yStartBullet, direction, speedFire, playerBullet));
+                lastFire = DateTime.Now;
+            }
+
+
         }
 
     }

@@ -16,20 +16,17 @@ namespace Tanks
         public event Action GameOver;
         public event Action<int> IncreaseScore;
 
-        public Kolobok kolobok;
-        public List<Apple> apples;
-        public List<Tank> tanks;
-        public List<Wall> walls;
+        private Kolobok kolobok;
+        private List<Apple> apples;
+        private List<Tank> tanks;
+        private List<Wall> walls;
 
-        public List<GameObject> gameObjects = new List<GameObject>();
-
-        int score;
-
-        Direction currentDirection = Direction.Right;
+        private int score;
+        private Direction currentDirection = Direction.Right;
 
         public void GameInit()
         {
-            kolobok = new Kolobok(225, 280);
+            kolobok = new Kolobok(Tanks.width/2, Tanks.height-50);
             tanks = new List<Tank>();
             apples = new List<Apple>();
             walls = new List<Wall>();
@@ -67,8 +64,6 @@ namespace Tanks
             while (tanks.Count < Tanks.numberTanks);
 
             GenerateApple();
-
-            GetList();
         }
         public void UpdateEntities()
         {
@@ -98,22 +93,7 @@ namespace Tanks
                 {
                     if(CheckCollision(walls[i], tanks[j]))
                     {
-                        if (tanks[j].direction == Direction.Left)
-                        {
-                            tanks[j].direction = Direction.Right;
-                        }
-                        else if (tanks[j].direction == Direction.Right)
-                        {
-                            tanks[j].direction = Direction.Left;
-                        }
-                        else if (tanks[j].direction == Direction.Up)
-                        {
-                            tanks[j].direction = Direction.Down;
-                        }
-                        else if (tanks[j].direction == Direction.Down)
-                        {
-                            tanks[j].direction = Direction.Up;
-                        }
+                        tanks[j].Reverse();
                     }
                 }
             }
@@ -165,6 +145,15 @@ namespace Tanks
                     break;
                 }
 
+                for(int i = 0; i < tanks.Count; i++)
+                {
+                    if (CheckCollision(tank, tanks[i]))
+                    {
+                        tank.Reverse();
+                        tanks[i].Reverse();
+                    }
+                }
+
                 for (int i = 0; i < tank.bullets.Count; i++)
                 {
                     if (CheckCollision(tank.bullets[i], kolobok))
@@ -194,15 +183,7 @@ namespace Tanks
                     }
                 }
             }
-            GetList();
         }
-
-        private bool CheckCollision(GameObject gameObject1, GameObject gameObject2)
-        {
-            return gameObject1.X + gameObject1.sizeX >= gameObject2.X && gameObject1.Y + gameObject1.sizeY >= gameObject2.Y &&
-                gameObject1.X < gameObject2.X + gameObject2.sizeX && gameObject1.Y < gameObject2.Y + gameObject2.sizeY;
-        }
-
         public void UserControl(int keyCode)
         {
             switch (keyCode)
@@ -224,7 +205,35 @@ namespace Tanks
                     break;
             }
         }
+        public List<GameObject> GetListGameObjects(bool withBullet)
+        {
 
+            List<GameObject> gameObjects = new List<GameObject>();
+
+            gameObjects.Add(kolobok);
+            gameObjects.AddRange(tanks);
+            gameObjects.AddRange(apples);
+            gameObjects.AddRange(walls);
+
+            if(!withBullet)
+            {
+                return gameObjects;
+            }
+            gameObjects.AddRange(kolobok.bullets);
+
+            foreach(Tank tank in tanks)
+            {
+                gameObjects.AddRange(tank.bullets);
+            }
+
+            return gameObjects;
+        }
+
+        private bool CheckCollision(GameObject gameObject1, GameObject gameObject2)
+        {
+            return gameObject1.X + gameObject1.sizeX >= gameObject2.X && gameObject1.Y + gameObject1.sizeY >= gameObject2.Y &&
+                gameObject1.X < gameObject2.X + gameObject2.sizeX && gameObject1.Y < gameObject2.Y + gameObject2.sizeY;
+        }
         private void GenerateApple()
         {
             do
@@ -247,15 +256,6 @@ namespace Tanks
                 }
             }
             while (apples.Count < Tanks.numberApples);
-        }
-
-        public void GetList()
-        {
-            gameObjects.Clear();
-            gameObjects.Add(kolobok);
-            gameObjects.AddRange(tanks);
-            gameObjects.AddRange(apples);
-            gameObjects.AddRange(walls);
         }
     }
 }

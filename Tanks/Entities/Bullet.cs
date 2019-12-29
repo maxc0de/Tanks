@@ -19,6 +19,8 @@ namespace Tanks
         public int speed;
         public Bullet(int X, int Y, Direction dir, int speed, bool playerBullet)
         {
+            Name = "Пуля";
+
             this.X = X;
             this.Y = Y;
             this.dX = speed;

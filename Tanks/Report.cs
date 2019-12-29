@@ -15,7 +15,7 @@ namespace Tanks
         public Report()
         {
             InitializeComponent();
-            this.Location = new Point(730, 100);            
+            this.Location = new Point(700, 100);            
         }
 
         public void UpdateGrid(List<GameObject> objects)

@@ -47,10 +47,29 @@ namespace Tanks
 
             Move(direction);
         }
-
+        public void Reverse()
+        {
+            if (direction == Direction.Left)
+            {
+                direction = Direction.Right;
+            }
+            else if (direction == Direction.Right)
+            {
+                direction = Direction.Left;
+            }
+            else if (direction == Direction.Up)
+            {
+                direction = Direction.Down;
+            }
+            else if (direction == Direction.Down)
+            {
+                direction = Direction.Up;
+            }
+        }
         public override GameObjectView GetView()
         {
             return new TankView(direction);
         }
+
     }
 }

@@ -12,16 +12,18 @@ namespace Tanks
 {
     public partial class Tanks : Form
     {
-        static public double width;
-        static public double height;
+        static public int width = 400;
+        static public int height = 400;
         static public int numberTanks = 3;
         static public int numberApples = 3;
-        static public int speed;
+        static public int speed = 10;
 
-        Graphics g;
-        Bitmap bitmap;
-        PackmanController controller;
-        Report report;
+        private List<TextBox> textBoxes = new List<TextBox>();
+        private bool viewReport = false;
+        private bool gameIsRun = false;
+
+        private PackmanController controller;
+        private Report report = new Report();
 
         public Tanks()
         {
@@ -29,114 +31,167 @@ namespace Tanks
 
             this.Location = new Point(100, 100);
 
-            width = pictureBoxMain.Width;
-            height = pictureBoxMain.Height;
+            pictureBoxMain.Width = width;
+            pictureBoxMain.Height = height;
 
             gameTimer.Tick += GameTimer_Tick;
-            gameTimer.Interval = 10;
+
+            textBoxNumberTanks.Text = numberTanks.ToString();
+            textBoxNumberApples.Text = numberApples.ToString();
+            textBoxWidth.Text = width.ToString();
+            textBoxHeight.Text = height.ToString();
+            textBoxSpeed.Text = speed.ToString();
+
+            textBoxes.Add(textBoxNumberTanks);
+            textBoxes.Add(textBoxNumberApples);
+            textBoxes.Add(textBoxWidth);
+            textBoxes.Add(textBoxHeight);
+            textBoxes.Add(textBoxSpeed);
 
             controller = new PackmanController();
-            controller.GameOver += GameOver;
-            controller.IncreaseScore += IncreaseScore;
-
-            bitmap = new Bitmap(pictureBoxMain.Width, pictureBoxMain.Height);
-            g = Graphics.FromImage(bitmap);
-
-            report = new Report();
-            report.Show();
-        }
-
-        private void GameTimer_Tick(object sender, EventArgs e)
-        {
-            controller.UpdateEntities();
-            report.UpdateGrid(controller.gameObjects);
-            Draw();
-        }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
-            {
-                controller.UserControl(1);
-            }
-            if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
-            {
-                controller.UserControl(2);
-            }
-            if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
-            {
-                controller.UserControl(3);
-            }
-            if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
-            {
-                controller.UserControl(4);
-            }
-            if (e.KeyCode == Keys.Space)
-            {
-                controller.UserControl(5);
-            }
-
-            Draw();
-        }
-
-        private void Draw()
-        {
-            g.Clear(Color.White);
-
-            DrawEntities(controller.gameObjects);
-            DrawEntities(controller.kolobok.bullets);
-
-            foreach (Tank tank in controller.tanks)
-            {
-                DrawEntities(tank.bullets);
-            }
-
-            pictureBoxMain.Image = bitmap;
-        }
-
-        private void DrawEntity(GameObject gameObject)
-        {
-            g.DrawImage(gameObject.GetView().GetBitmap(), new Point(gameObject.X, gameObject.Y));
+            controller.GameOver += GameStop;
+            controller.IncreaseScore += ChangeScore;
         }
 
         private void DrawEntities<T>(List<T> objects) where T : GameObject
         {
+            Bitmap bitmap = new Bitmap(width, height);
             if (objects.Count > 0)
             {
-                foreach (T obj in objects)
+                using (Graphics g = Graphics.FromImage(bitmap))
                 {
-                    DrawEntity(obj);
+                    g.Clear(Color.SkyBlue);
+                    foreach (T obj in objects)
+                    {
+                        g.DrawImage(obj.GetView().GetBitmap(), new Point(obj.X, obj.Y));
+                    }
                 }
             }
+
+            pictureBoxMain.Image = bitmap;
         }
-
-        private void menu_GameStart(object sender, EventArgs e)
-        {
-            controller.GameInit();
-            Draw();
-            gameTimer.Start();
-            labelGameOver.Text = "";
-            gameScore.Text = "0";
-            report.UpdateGrid(controller.gameObjects);
-
-            this.Focus();
-        }
-
-        private void IncreaseScore(int score)
+        private void ChangeScore(int score)
         {
             gameScore.Text = score.ToString();
         }
+        private void GameStart()
+        {
+            numberTanks = Convert.ToInt32(textBoxNumberTanks.Text);
+            numberApples = Convert.ToInt32(textBoxNumberApples.Text);
+            width = Convert.ToInt32(textBoxWidth.Text);
+            height = Convert.ToInt32(textBoxHeight.Text);
+            gameTimer.Interval = Convert.ToInt32(textBoxSpeed.Text);
 
-        private void GameOver()
+            controller.GameInit();
+            DrawEntities(controller.GetListGameObjects(true));
+            gameTimer.Start();
+            labelGameOver.Text = "";
+            gameScore.Text = "0";
+
+            foreach (TextBox textBox in textBoxes)
+            {
+                textBox.Enabled = false;
+            }
+            checkBox1.Enabled = false;
+
+            if (viewReport)
+            {
+                if (report == null || report.IsDisposed)
+                {
+                    report = new Report();
+                }
+                report.Show();
+                report.UpdateGrid(controller.GetListGameObjects(false));
+            }
+
+            this.Focus();
+        }
+        private void GameStop()
         {
             gameTimer.Stop();
             labelGameOver.Text = "Игра окончена!";
+            gameIsRun = false;
+            button1.Text = "Старт";
+            report.Close();
+            foreach (TextBox textBox in textBoxes)
+            {
+                textBox.Enabled = true;
+            }
+            checkBox1.Enabled = true;
         }
 
-        public class DataGridViewEx : DataGridView
+        //Обработчики работы с формой
+        private void GameTimer_Tick(object sender, EventArgs e)
         {
-            protected override bool DoubleBuffered { get => true; }
+            controller.UpdateEntities();
+            if (viewReport)
+            {
+                report.UpdateGrid(controller.GetListGameObjects(false));
+            }
+            DrawEntities(controller.GetListGameObjects(true));
+        }
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (gameIsRun)
+            {
+                if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
+                {
+                    controller.UserControl(1);
+                }
+                if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
+                {
+                    controller.UserControl(2);
+                }
+                if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
+                {
+                    controller.UserControl(3);
+                }
+                if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
+                {
+                    controller.UserControl(4);
+                }
+                if (e.KeyCode == Keys.Space)
+                {
+                    controller.UserControl(5);
+                }
+            }
+        }
+        private void TextBoxNumbers_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+
+            if (number == 8)
+            {
+                e.Handled = false;
+            }
+
+            else if (!Char.IsDigit(number))
+            {
+                e.Handled = true;
+            }
+        }
+        private void CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            viewReport = !viewReport;
+        }
+        private void Button_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+            {
+                if (!gameIsRun)
+                {
+                    GameStart();
+                    gameIsRun = true;
+                    button1.Text = "Стоп";
+                }
+                else
+                {
+                    GameStop();
+                    gameIsRun = false;
+                    button1.Text = "Старт";
+                }
+
+            }
         }
     }
-
 }
