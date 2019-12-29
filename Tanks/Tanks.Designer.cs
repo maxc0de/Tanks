@@ -55,7 +55,7 @@ namespace Tanks
             // 
             this.gameScore.AutoSize = true;
             this.gameScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.gameScore.Location = new System.Drawing.Point(507, 43);
+            this.gameScore.Location = new System.Drawing.Point(508, 19);
             this.gameScore.Name = "gameScore";
             this.gameScore.Size = new System.Drawing.Size(18, 20);
             this.gameScore.TabIndex = 2;
@@ -65,7 +65,7 @@ namespace Tanks
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(406, 43);
+            this.label1.Location = new System.Drawing.Point(407, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(95, 20);
             this.label1.TabIndex = 3;
@@ -84,7 +84,7 @@ namespace Tanks
             this.labelGameOver.AutoSize = true;
             this.labelGameOver.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelGameOver.ForeColor = System.Drawing.Color.Red;
-            this.labelGameOver.Location = new System.Drawing.Point(406, 63);
+            this.labelGameOver.Location = new System.Drawing.Point(407, 89);
             this.labelGameOver.Name = "labelGameOver";
             this.labelGameOver.Size = new System.Drawing.Size(0, 20);
             this.labelGameOver.TabIndex = 5;
@@ -187,7 +187,9 @@ namespace Tanks
             // 
             // button1
             // 
+            this.button1.Cursor = System.Windows.Forms.Cursors.Default;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.button1.Location = new System.Drawing.Point(462, 358);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 31);
@@ -217,11 +219,16 @@ namespace Tanks
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gameScore);
             this.Controls.Add(this.pictureBoxMain);
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Tanks";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Танки";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
+            this.Load += new System.EventHandler(this.Tanks_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tanks_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

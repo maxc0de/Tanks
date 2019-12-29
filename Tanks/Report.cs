@@ -12,10 +12,10 @@ namespace Tanks
 {
     public partial class Report : Form
     {
-        public Report()
+        public Report(int top, int left, int widthParent)
         {
             InitializeComponent();
-            this.Location = new Point(700, 100);            
+            this.Location = new Point(left + widthParent, top);            
         }
 
         public void UpdateGrid(List<GameObject> objects)

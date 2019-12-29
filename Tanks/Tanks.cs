@@ -22,14 +22,13 @@ namespace Tanks
         private bool viewReport = false;
         private bool gameIsRun = false;
 
+
         private PackmanController controller;
-        private Report report = new Report();
+        private Report report;
 
         public Tanks()
         {
             InitializeComponent();
-
-            this.Location = new Point(100, 100);
 
             pictureBoxMain.Width = width;
             pictureBoxMain.Height = height;
@@ -98,7 +97,7 @@ namespace Tanks
             {
                 if (report == null || report.IsDisposed)
                 {
-                    report = new Report();
+                    report = new Report(this.Top, this.Left, this.Width);
                 }
                 report.Show();
                 report.UpdateGrid(controller.GetListGameObjects(false));
@@ -130,7 +129,7 @@ namespace Tanks
             }
             DrawEntities(controller.GetListGameObjects(true));
         }
-        private void Form_KeyDown(object sender, KeyEventArgs e)
+        private void Tanks_KeyDown(object sender, KeyEventArgs e)
         {
             if (gameIsRun)
             {
@@ -181,17 +180,22 @@ namespace Tanks
                 if (!gameIsRun)
                 {
                     GameStart();
+                    this.ActiveControl = pictureBoxMain;
                     gameIsRun = true;
                     button1.Text = "Стоп";
                 }
                 else
                 {
                     GameStop();
+                    this.ActiveControl = pictureBoxMain;
                     gameIsRun = false;
                     button1.Text = "Старт";
                 }
-
             }
+        }
+        private void Tanks_Load(object sender, EventArgs e)
+        {
+            report = new Report(this.Top, this.Left, this.Width);
         }
     }
 }
