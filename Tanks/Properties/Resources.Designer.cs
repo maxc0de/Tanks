@@ -91,7 +91,19 @@ namespace Tanks.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kolobok_full {
+            get {
+                object obj = ResourceManager.GetObject("kolobok_full", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 100; 100; 30; 100
+        ///350; 200; 30; 100
+        ///300; 100; 100; 30.
         /// </summary>
         internal static string level {
             get {

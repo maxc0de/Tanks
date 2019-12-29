@@ -18,12 +18,15 @@ namespace Tanks
             switch(direction)
             {
                 case Direction.Down:
+                    //bmp = new Bitmap(Resources.kolobok_full.Crop(new Rectangle(76,0,38,38)));
                     rt = RotateFlipType.Rotate180FlipNone;
                     break;
                 case Direction.Left:
+                    //bmp = new Bitmap(Resources.kolobok_full.Crop(new Rectangle(114, 0, 38, 38)));
                     rt = RotateFlipType.Rotate270FlipNone;
                     break;
                 case Direction.Right:
+                    //bmp = new Bitmap(Resources.kolobok_full.Crop(new Rectangle(38, 0, 38, 38)));
                     rt = RotateFlipType.Rotate90FlipNone;
                     break;
             }
