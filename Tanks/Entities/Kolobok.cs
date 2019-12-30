@@ -26,9 +26,5 @@ namespace Tanks
         {
             return new KolobokView(direction);
         }
-        public void Collision()
-        {
-            Move(-dX, -dY);
-        }
     }
 }

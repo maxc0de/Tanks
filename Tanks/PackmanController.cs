@@ -21,8 +21,8 @@ namespace Tanks
         private List<Tank> tanks;
         private List<Wall> walls;
 
+        private Direction currentDirection;
         private int score;
-        private Direction currentDirection = Direction.Right;
 
         public void GameInit()
         {
@@ -31,6 +31,7 @@ namespace Tanks
             apples = new List<Apple>();
             walls = new List<Wall>();
 
+            currentDirection = Direction.Right;
             score = 0;
 
             //Генерация cтен
@@ -79,7 +80,7 @@ namespace Tanks
                 {
                     if(CheckCollision(walls[i], tanks[j]))
                     {
-                        tanks[j].Reverse();
+                        tanks[j].Collision();
                     }
                 }
             }
@@ -99,8 +100,8 @@ namespace Tanks
                         if (CheckCollision(walls[j], kolobok.bullets[i]))
                         {
                             kolobok.bullets.Remove(kolobok.bullets[i]);
-                            walls[j].hitCount += 1;
-                            if (walls[j].hitCount > 5)
+                            walls[j].hitCount++;
+                            if (walls[j].hitCount > 4)
                             {
                                 walls.Remove(walls[j]);
                             }
