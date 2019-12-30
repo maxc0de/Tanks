@@ -47,6 +47,7 @@ namespace Tanks
                            
             //Генерация яблок
             apples.AddRange(GenerateGameObjects(Tanks.numberApples, GetApple).Cast<Apple>());
+
             //Генерация танков
             tanks.AddRange(GenerateGameObjects(Tanks.numberTanks, GetTank).Cast<Tank>());
         }
@@ -226,7 +227,6 @@ namespace Tanks
             List<GameObject> objects = new List<GameObject>();
             do
             {
-
                 GameObject gameObject = action();
 
                 bool noCollision = true;
@@ -242,7 +242,6 @@ namespace Tanks
                 if (noCollision)
                 {
                     objects.Add(gameObject);
-                    noCollision = true;
                 }
             }
             while (objects.Count < nums);
