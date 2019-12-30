@@ -73,6 +73,16 @@ namespace Tanks.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap explosion {
+            get {
+                object obj = ResourceManager.GetObject("explosion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap kolobok {
             get {
                 object obj = ResourceManager.GetObject("kolobok", resourceCulture);
@@ -101,8 +111,9 @@ namespace Tanks.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 0; 100; 20; 3
-        ///0; 250; 20; 3.
+        ///   Ищет локализованную строку, похожую на 100; 200; 2; 10
+        ///300; 200; 2; 10
+        ///140; 200; 8; 2.
         /// </summary>
         internal static string level1 {
             get {
@@ -124,8 +135,8 @@ namespace Tanks.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 100; 200; 10; 2
-        ///300; 200; 10; 2.
+        ///   Ищет локализованную строку, похожую на 0; 100; 20; 3
+        ///0; 250; 20; 3.
         /// </summary>
         internal static string level3 {
             get {

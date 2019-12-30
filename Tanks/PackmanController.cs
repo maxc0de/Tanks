@@ -20,6 +20,7 @@ namespace Tanks
         private List<Apple> apples;
         private List<Tank> tanks;
         private List<Wall> walls;
+        private List<Explosion> explosions;
 
         private Direction currentDirection;
         private int score;
@@ -30,6 +31,7 @@ namespace Tanks
             tanks = new List<Tank>();
             apples = new List<Apple>();
             walls = new List<Wall>();
+            explosions = new List<Explosion>();
 
             currentDirection = Direction.Right;
             score = 0;
@@ -99,6 +101,10 @@ namespace Tanks
                     {
                         if (CheckCollision(walls[j], kolobok.bullets[i]))
                         {
+                            Explosion exp = new Explosion(kolobok.bullets[i].X, kolobok.bullets[i].Y);
+                            exp.remove += RemoveExp;
+                            explosions.Add(exp);
+
                             kolobok.bullets.Remove(kolobok.bullets[i]);
                             walls[j].hitCount++;
                             if (walls[j].hitCount >= Wall.strength)
@@ -215,6 +221,7 @@ namespace Tanks
             gameObjects.Add(kolobok);
             gameObjects.AddRange(tanks);
             gameObjects.AddRange(apples);
+            gameObjects.AddRange(explosions);
 
 
             if(!withBullets)
@@ -300,6 +307,11 @@ namespace Tanks
             }
 
             return walls;
+        }
+
+        private void RemoveExp(Explosion explosion)
+        {
+            explosions.Remove(explosion);
         }
     }
 }

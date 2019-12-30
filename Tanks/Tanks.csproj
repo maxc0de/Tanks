@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Apple.cs" />
+    <Compile Include="Entities\Explosion.cs" />
+    <Compile Include="ExplosionView.cs" />
     <Compile Include="Views\AppleView.cs" />
     <Compile Include="Entities\Bullet.cs" />
     <Compile Include="Entities\GameObject.cs" />
@@ -134,6 +136,9 @@
     <None Include="Resources\level3.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\explosion.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
