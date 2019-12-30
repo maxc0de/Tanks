@@ -47,8 +47,8 @@ namespace Tanks
             textBoxes.Add(textBoxHeight);
             textBoxes.Add(textBoxSpeed);
 
-            comboBox1.Items.Add("Первый уровень");
-            comboBox1.Items.Add("Второй уровень");
+            comboBox1.Items.Add("1");
+            comboBox1.Items.Add("2");
             comboBox1.SelectedIndex = 0;
 
             controller = new PackmanController();
