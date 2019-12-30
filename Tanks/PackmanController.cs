@@ -63,7 +63,7 @@ namespace Tanks
                 {
                     apples.Remove(apples[i]);
                     IncreaseScore(++score);
-                    apples.Add(GetApple());
+                    apples.AddRange(GenerateGameObjects(1, GetApple).Cast<Apple>());
                     break;
                 }
             }
