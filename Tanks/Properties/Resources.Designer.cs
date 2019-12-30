@@ -101,7 +101,8 @@ namespace Tanks.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 100; 100; 5; 5.
+        ///   Ищет локализованную строку, похожую на 0; 100; 20; 3
+        ///0; 250; 20; 3.
         /// </summary>
         internal static string level1 {
             get {
@@ -111,14 +112,24 @@ namespace Tanks.Properties {
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на 50; 50; 3; 6
-        ///50; 250; 3; 6
+        ///50; 250; 3; 5
         ///180; 180; 4; 3
-        ///300; 50; 3; 6
-        ///300; 250; 3; 6.
+        ///300; 50; 3; 5
+        ///300; 250; 3; 5.
         /// </summary>
         internal static string level2 {
             get {
                 return ResourceManager.GetString("level2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на 100; 200; 10; 2
+        ///300; 200; 10; 2.
+        /// </summary>
+        internal static string level3 {
+            get {
+                return ResourceManager.GetString("level3", resourceCulture);
             }
         }
         

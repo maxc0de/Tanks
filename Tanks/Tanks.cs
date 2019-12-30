@@ -49,6 +49,7 @@ namespace Tanks
 
             comboBox1.Items.Add("1");
             comboBox1.Items.Add("2");
+            comboBox1.Items.Add("3");
             comboBox1.SelectedIndex = 0;
 
             controller = new PackmanController();
@@ -89,9 +90,13 @@ namespace Tanks
             {
                 controller.GameInit(new FileInfo(@"Resources\level1.txt"));
             }
-            else
+            else if(comboBox1.SelectedIndex == 1)
             {
                 controller.GameInit(new FileInfo(@"Resources\level2.txt"));
+            }
+            else
+            {
+                controller.GameInit(new FileInfo(@"Resources\level3.txt"));
             }
 
             DrawEntities(controller.GetListGameObjects(true));
