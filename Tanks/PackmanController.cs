@@ -143,10 +143,13 @@ namespace Tanks
                             if(tank.direction != tanks[i].direction)
                             {
                                 tank.Reverse();
+                                
                                 tanks[i].Reverse();
+                                tanks[i].Collision();
                             }
                             else
                             {
+                                tank.Collision();
                                 tank.Reverse();
                             }
                         }
@@ -212,12 +215,15 @@ namespace Tanks
             gameObjects.Add(kolobok);
             gameObjects.AddRange(tanks);
             gameObjects.AddRange(apples);
-            gameObjects.AddRange(walls);
+
 
             if(!withBullets)
             {
                 return gameObjects;
             }
+
+            gameObjects.AddRange(walls);
+
             gameObjects.AddRange(kolobok.bullets);
 
             foreach(Tank tank in tanks)

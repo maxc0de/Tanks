@@ -15,6 +15,8 @@ namespace Tanks
         {
             Name = "Танк";
 
+            direction = (Direction)PackmanController.randomNum.Next(0, 4);
+
             this.X = X;
             this.Y = Y;
 
