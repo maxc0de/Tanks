@@ -14,8 +14,8 @@ namespace Tanks
     {
         static public int width = 400;
         static public int height = 400;
-        static public int numberTanks = 3;
-        static public int numberApples = 3;
+        static public int numberTanks = 5;
+        static public int numberApples = 5;
         static public int speed = 10;
 
         private List<TextBox> textBoxes = new List<TextBox>();

@@ -136,10 +136,20 @@ namespace Tanks
 
                 for(int i = 0; i < tanks.Count; i++)
                 {
-                    if (CheckCollision(tank, tanks[i]))
+                    if (!tank.Equals(tanks[i]))
                     {
-                        tank.Reverse();
-                        tanks[i].Reverse();
+                        if (CheckCollision(tank, tanks[i]))
+                        {
+                            if(tank.direction != tanks[i].direction)
+                            {
+                                tank.Reverse();
+                                tanks[i].Reverse();
+                            }
+                            else
+                            {
+                                tank.Reverse();
+                            }
+                        }
                     }
                 }
 
@@ -240,6 +250,15 @@ namespace Tanks
                         break;
                     }
                 }
+                foreach(GameObject obj in objects)
+                {
+                    if (CheckCollision(obj, gameObject))
+                    {
+                        noCollision = false;
+                        break;
+                    }
+                }
+
                 if (noCollision)
                 {
                     objects.Add(gameObject);
