@@ -31,17 +31,20 @@ namespace Tanks
             apples = new List<Apple>();
             walls = new List<Wall>();
 
-            //Стены
-            string[] arStr = File.ReadAllLines(@"Resources\level.txt");
-            foreach(string str in arStr)
-            {
-                int[] features = str.Split(new char[] { ';' }).ToList().Select(s => Convert.ToInt32(s)).ToArray();
-                walls.Add(new Wall(features));
-            }
-
             score = 0;
 
-
+            //Генерация cтен
+            FileInfo level = new FileInfo(@"Resources\level.txt");
+            if (level.Exists)
+            {
+                string[] arStr = File.ReadAllLines(level.FullName);
+                foreach (string str in arStr)
+                {
+                    int[] features = str.Split(new char[] { ';' }).ToList().Select(s => Convert.ToInt32(s)).ToArray();
+                    walls.Add(new Wall(features));
+                }
+            }
+                           
             //Генерация яблок
             apples.AddRange(GenerateGameObjects(Tanks.numberApples, GetApple).Cast<Apple>());
             //Генерация танков
@@ -79,7 +82,8 @@ namespace Tanks
                     }
                 }
             }
-            
+
+            //Проверка взаимодействия пуль колобка
             for (int i = 0; i < kolobok.bullets.Count; i++)
             {
                 if (!kolobok.bullets[i].Move(kolobok.bullets[i].direction))
@@ -105,6 +109,7 @@ namespace Tanks
                 }
             }
 
+            //Проверка взаимодействия для танков
             for (int i = 0; i < tanks.Count; i++)
             {
                 for (int j = 0; j < kolobok.bullets.Count; j++)
@@ -187,7 +192,7 @@ namespace Tanks
                     break;
             }
         }
-        public List<GameObject> GetListGameObjects(bool withBullet)
+        public List<GameObject> GetListGameObjects(bool withBullets)
         {
 
             List<GameObject> gameObjects = new List<GameObject>();
@@ -197,7 +202,7 @@ namespace Tanks
             gameObjects.AddRange(apples);
             gameObjects.AddRange(walls);
 
-            if(!withBullet)
+            if(!withBullets)
             {
                 return gameObjects;
             }
@@ -216,7 +221,6 @@ namespace Tanks
             return gameObject1.X + gameObject1.sizeX >= gameObject2.X && gameObject1.Y + gameObject1.sizeY >= gameObject2.Y &&
                 gameObject1.X < gameObject2.X + gameObject2.sizeX && gameObject1.Y < gameObject2.Y + gameObject2.sizeY;
         }
-
         private List<GameObject> GenerateGameObjects(int nums, Func<GameObject> action)
         {
             List<GameObject> objects = new List<GameObject>();
@@ -245,7 +249,6 @@ namespace Tanks
 
             return objects;
         }
-
         private Apple GetApple()
         {
             return new Apple(randomNum.Next(0, (int)(Tanks.width * 0.9)), randomNum.Next(0, (int)(Tanks.height * 0.9)));

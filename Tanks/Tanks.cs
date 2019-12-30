@@ -22,7 +22,6 @@ namespace Tanks
         private bool viewReport = false;
         private bool gameIsRun = false;
 
-
         private PackmanController controller;
         private Report report;
 
@@ -91,7 +90,7 @@ namespace Tanks
             {
                 textBox.Enabled = false;
             }
-            checkBox1.Enabled = false;
+            checkBoxReport.Enabled = false;
 
             if (viewReport)
             {
@@ -110,13 +109,13 @@ namespace Tanks
             gameTimer.Stop();
             labelGameOver.Text = "Игра окончена!";
             gameIsRun = false;
-            button1.Text = "Старт";
+            buttonStartStop.Text = "Старт";
             report.Close();
             foreach (TextBox textBox in textBoxes)
             {
                 textBox.Enabled = true;
             }
-            checkBox1.Enabled = true;
+            checkBoxReport.Enabled = true;
         }
 
         //Обработчики работы с формой
@@ -155,6 +154,10 @@ namespace Tanks
                 }
             }
         }
+        private void Tanks_Load(object sender, EventArgs e)
+        {
+            report = new Report(this.Top, this.Left, this.Width);
+        }
         private void TextBoxNumbers_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
@@ -169,11 +172,11 @@ namespace Tanks
                 e.Handled = true;
             }
         }
-        private void CheckBox_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxReport_CheckedChanged(object sender, EventArgs e)
         {
             viewReport = !viewReport;
         }
-        private void Button_MouseClick(object sender, MouseEventArgs e)
+        private void ButtonStartStop_MouseClick(object sender, MouseEventArgs e)
         {
             if(e.Button == MouseButtons.Left)
             {
@@ -182,20 +185,16 @@ namespace Tanks
                     GameStart();
                     this.ActiveControl = pictureBoxMain;
                     gameIsRun = true;
-                    button1.Text = "Стоп";
+                    buttonStartStop.Text = "Стоп";
                 }
                 else
                 {
                     GameStop();
                     this.ActiveControl = pictureBoxMain;
                     gameIsRun = false;
-                    button1.Text = "Старт";
+                    buttonStartStop.Text = "Старт";
                 }
             }
-        }
-        private void Tanks_Load(object sender, EventArgs e)
-        {
-            report = new Report(this.Top, this.Left, this.Width);
         }
     }
 }
