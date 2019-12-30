@@ -50,6 +50,7 @@
     <Compile Include="Views\AppleView.cs" />
     <Compile Include="Entities\Bullet.cs" />
     <Compile Include="Entities\GameObject.cs" />
+    <Compile Include="Views\Extention.cs" />
     <Compile Include="Views\GameObjectView.cs" />
     <Compile Include="Views\KolobokView.cs" />
     <Compile Include="PackmanController.cs" />

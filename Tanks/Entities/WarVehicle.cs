@@ -57,11 +57,9 @@ namespace Tanks
             }
             else if(DateTime.Now - lastFire > TimeSpan.FromMilliseconds(500))
             {
-                bullets.Add(new Bullet(xStartBullet, yStartBullet, direction, speedFire, playerBullet));
                 lastFire = DateTime.Now;
+                bullets.Add(new Bullet(xStartBullet, yStartBullet, direction, speedFire, playerBullet));
             }
-
-
         }
 
     }
