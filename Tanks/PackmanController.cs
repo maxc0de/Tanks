@@ -101,10 +101,6 @@ namespace Tanks
                     {
                         if (CheckCollision(walls[j], kolobok.bullets[i]))
                         {
-                            Explosion exp = new Explosion(kolobok.bullets[i].X, kolobok.bullets[i].Y);
-                            exp.remove += RemoveExp;
-                            explosions.Add(exp);
-
                             kolobok.bullets.Remove(kolobok.bullets[i]);
                             walls[j].hitCount++;
                             if (walls[j].hitCount >= Wall.strength)
@@ -124,6 +120,9 @@ namespace Tanks
                 {
                     if (CheckCollision(tanks[i], kolobok.bullets[j]))
                     {
+                        Explosion exp = new Explosion(tanks[i].X, tanks[i].Y);
+                        exp.remove += RemoveExp;
+                        explosions.Add(exp);
                         tanks.Remove(tanks[i]);
                         kolobok.bullets.Remove(kolobok.bullets[j]);
                         break;
