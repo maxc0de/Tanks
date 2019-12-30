@@ -19,6 +19,12 @@ namespace Tanks
             this.Y = Y;
         }
 
+        public Apple(GameObject gameObject)
+        {
+            this.X = gameObject.X;
+            this.Y = gameObject.Y;
+        }
+
         public override GameObjectView GetView()
         {
             return new AppleView();

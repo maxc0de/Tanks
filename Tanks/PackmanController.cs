@@ -41,29 +41,11 @@ namespace Tanks
 
             score = 0;
 
+
+            //Генерация яблок
+            apples.AddRange(GenerateGameObjects(Tanks.numberApples, GetApple).Cast<Apple>());
             //Генерация танков
-            do
-            {
-               Tank tank = new Tank(randomNum.Next(0, (int)(Tanks.width * 0.9)), randomNum.Next(0, (int)Tanks.height/2));
-               bool noCollision = true;
-
-               for (int i=0; i<walls.Count; i++)
-               {
-                    if(CheckCollision(walls[i], tank))
-                    {
-                        noCollision = false;
-                        break;
-                    }
-               }
-               if (noCollision)
-               {
-                    tanks.Add(tank);
-                    noCollision = true;
-               }
-            }
-            while (tanks.Count < Tanks.numberTanks);
-
-            GenerateApple();
+            tanks.AddRange(GenerateGameObjects(Tanks.numberTanks, GetTank).Cast<Tank>());
         }
         public void UpdateEntities()
         {
@@ -76,7 +58,7 @@ namespace Tanks
                 {
                     apples.Remove(apples[i]);
                     IncreaseScore(++score);
-                    GenerateApple();
+                    apples.Add(GetApple());
                     break;
                 }
             }
@@ -234,16 +216,20 @@ namespace Tanks
             return gameObject1.X + gameObject1.sizeX >= gameObject2.X && gameObject1.Y + gameObject1.sizeY >= gameObject2.Y &&
                 gameObject1.X < gameObject2.X + gameObject2.sizeX && gameObject1.Y < gameObject2.Y + gameObject2.sizeY;
         }
-        private void GenerateApple()
+
+        private List<GameObject> GenerateGameObjects(int nums, Func<GameObject> action)
         {
+            List<GameObject> objects = new List<GameObject>();
             do
             {
-                Apple apple = new Apple(randomNum.Next(0, (int)(Tanks.width * 0.9)), randomNum.Next(0, (int)(Tanks.height * 0.9)));
+
+                GameObject gameObject = action();
+
                 bool noCollision = true;
 
                 for (int i = 0; i < walls.Count; i++)
                 {
-                    if (CheckCollision(walls[i], apple))
+                    if (CheckCollision(walls[i], gameObject))
                     {
                         noCollision = false;
                         break;
@@ -251,11 +237,22 @@ namespace Tanks
                 }
                 if (noCollision)
                 {
-                    apples.Add(apple);
+                    objects.Add(gameObject);
                     noCollision = true;
                 }
             }
-            while (apples.Count < Tanks.numberApples);
+            while (objects.Count < nums);
+
+            return objects;
+        }
+
+        private Apple GetApple()
+        {
+            return new Apple(randomNum.Next(0, (int)(Tanks.width * 0.9)), randomNum.Next(0, (int)(Tanks.height * 0.9)));
+        }
+        private Tank GetTank()
+        {
+            return new Tank(randomNum.Next(0, (int)(Tanks.width * 0.9)), randomNum.Next(0, Tanks.height / 2));
         }
     }
 }
