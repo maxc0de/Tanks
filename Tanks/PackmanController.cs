@@ -101,7 +101,7 @@ namespace Tanks
                         {
                             kolobok.bullets.Remove(kolobok.bullets[i]);
                             walls[j].hitCount++;
-                            if (walls[j].hitCount > 4)
+                            if (walls[j].hitCount >= Wall.strength)
                             {
                                 walls.Remove(walls[j]);
                             }
@@ -162,7 +162,7 @@ namespace Tanks
                             {
                                 tank.bullets.Remove(tank.bullets[i]);
                                 walls[j].hitCount += 1;
-                                if (walls[j].hitCount > 5)
+                                if (walls[j].hitCount >= Wall.strength)
                                 {
                                     walls.Remove(walls[j]);
                                 }
