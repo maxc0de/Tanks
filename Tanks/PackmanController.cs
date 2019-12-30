@@ -24,7 +24,7 @@ namespace Tanks
         private Direction currentDirection;
         private int score;
 
-        public void GameInit()
+        public void GameInit(FileInfo file)
         {
             kolobok = new Kolobok(Tanks.width/2, Tanks.height-50);
             tanks = new List<Tank>();
@@ -35,17 +35,17 @@ namespace Tanks
             score = 0;
 
             //Генерация cтен
-            FileInfo level = new FileInfo(@"Resources\level.txt");
+            FileInfo level = file;
             if (level.Exists)
             {
                 string[] arStr = File.ReadAllLines(level.FullName);
                 foreach (string str in arStr)
                 {
-                    int[] features = str.Split(new char[] { ';' }).ToList().Select(s => Convert.ToInt32(s)).ToArray();
-                    walls.Add(new Wall(features));
+                    int[] f = str.Split(new char[] { ';' }).ToList().Select(s => Convert.ToInt32(s)).ToArray();
+                    walls.AddRange(GetWall(f[0], f[1], f[2], f[3]));
                 }
             }
-                           
+                          
             //Генерация яблок
             apples.AddRange(GenerateGameObjects(Tanks.numberApples, GetApple).Cast<Apple>());
 
@@ -281,6 +281,25 @@ namespace Tanks
         private Tank GetTank()
         {
             return new Tank(randomNum.Next(0, (int)(Tanks.width * 0.9)), randomNum.Next(0, Tanks.height / 2));
+        }
+        private List<Wall> GetWall(int X, int Y, int numX, int numY)
+        {
+            List<Wall> walls = new List<Wall>();
+            int x = X;
+            int y = Y;
+
+            for(int i = 0; i<numX; i++)
+            {
+                for(int j = 0; j < numY; j++)
+                {
+                    walls.Add(new Wall(x, y, 20, 20));
+                    y += 20;
+                }
+                x += 20;
+                y = Y;
+            }
+
+            return walls;
         }
     }
 }

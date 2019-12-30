@@ -48,6 +48,7 @@ namespace Tanks
             this.textBoxSpeed = new System.Windows.Forms.TextBox();
             this.checkBoxReport = new System.Windows.Forms.CheckBox();
             this.buttonStartStop = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,7 +56,7 @@ namespace Tanks
             // 
             this.gameScore.AutoSize = true;
             this.gameScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.gameScore.Location = new System.Drawing.Point(508, 19);
+            this.gameScore.Location = new System.Drawing.Point(511, 47);
             this.gameScore.Name = "gameScore";
             this.gameScore.Size = new System.Drawing.Size(18, 20);
             this.gameScore.TabIndex = 2;
@@ -65,7 +66,7 @@ namespace Tanks
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(407, 19);
+            this.label1.Location = new System.Drawing.Point(410, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(95, 20);
             this.label1.TabIndex = 3;
@@ -174,35 +175,44 @@ namespace Tanks
             this.textBoxSpeed.TabIndex = 15;
             this.textBoxSpeed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxNumbers_KeyPress);
             // 
-            // checkBox1
+            // checkBoxReport
             // 
             this.checkBoxReport.AutoSize = true;
             this.checkBoxReport.Location = new System.Drawing.Point(411, 317);
-            this.checkBoxReport.Name = "checkBox1";
+            this.checkBoxReport.Name = "checkBoxReport";
             this.checkBoxReport.Size = new System.Drawing.Size(118, 17);
             this.checkBoxReport.TabIndex = 16;
             this.checkBoxReport.Text = "Отображать отчёт";
             this.checkBoxReport.UseVisualStyleBackColor = true;
             this.checkBoxReport.CheckedChanged += new System.EventHandler(this.CheckBoxReport_CheckedChanged);
             // 
-            // button1
+            // buttonStartStop
             // 
             this.buttonStartStop.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonStartStop.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.buttonStartStop.Location = new System.Drawing.Point(462, 358);
-            this.buttonStartStop.Name = "button1";
+            this.buttonStartStop.Name = "buttonStartStop";
             this.buttonStartStop.Size = new System.Drawing.Size(90, 31);
             this.buttonStartStop.TabIndex = 17;
             this.buttonStartStop.Text = "Старт";
             this.buttonStartStop.UseVisualStyleBackColor = true;
             this.buttonStartStop.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ButtonStartStop_MouseClick);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(411, 12);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 18;
+            // 
             // Tanks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(563, 401);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.buttonStartStop);
             this.Controls.Add(this.checkBoxReport);
             this.Controls.Add(this.textBoxSpeed);
@@ -254,6 +264,7 @@ namespace Tanks
         private System.Windows.Forms.TextBox textBoxSpeed;
         private System.Windows.Forms.CheckBox checkBoxReport;
         private System.Windows.Forms.Button buttonStartStop;
+        private ComboBox comboBox1;
 
         public class DataGridViewEx : DataGridView
         {

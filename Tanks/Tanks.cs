@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,10 @@ namespace Tanks
             textBoxes.Add(textBoxHeight);
             textBoxes.Add(textBoxSpeed);
 
+            comboBox1.Items.Add("Первый уровень");
+            comboBox1.Items.Add("Второй уровень");
+            comboBox1.SelectedIndex = 0;
+
             controller = new PackmanController();
             controller.GameOver += GameStop;
             controller.IncreaseScore += ChangeScore;
@@ -80,7 +85,15 @@ namespace Tanks
             height = Convert.ToInt32(textBoxHeight.Text);
             gameTimer.Interval = Convert.ToInt32(textBoxSpeed.Text);
 
-            controller.GameInit();
+            if (comboBox1.SelectedIndex == 0)
+            {
+                controller.GameInit(new FileInfo(@"Resources\level1.txt"));
+            }
+            else
+            {
+                controller.GameInit(new FileInfo(@"Resources\level2.txt"));
+            }
+
             DrawEntities(controller.GetListGameObjects(true));
             gameTimer.Start();
             labelGameOver.Text = "";
@@ -91,6 +104,7 @@ namespace Tanks
                 textBox.Enabled = false;
             }
             checkBoxReport.Enabled = false;
+            comboBox1.Enabled = false;
 
             if (viewReport)
             {
@@ -116,6 +130,7 @@ namespace Tanks
                 textBox.Enabled = true;
             }
             checkBoxReport.Enabled = true;
+            comboBox1.Enabled = true;
         }
 
         //Обработчики работы с формой

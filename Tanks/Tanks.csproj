@@ -118,12 +118,17 @@
     <None Include="Resources\tank_bullet.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\level.txt">
+    <None Include="Resources\kolobok_full.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\level2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\kolobok_full.png" />
+    <None Include="Resources\level1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
