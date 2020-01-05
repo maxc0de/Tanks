@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Entities\Apple.cs" />
     <Compile Include="Entities\Explosion.cs" />
+    <Compile Include="Entities\River.cs" />
     <Compile Include="ExplosionView.cs" />
     <Compile Include="Views\AppleView.cs" />
     <Compile Include="Entities\Bullet.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Entities\Kolobok.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\RiverView.cs" />
     <Compile Include="Views\TankView.cs" />
     <Compile Include="Entities\Wall.cs" />
     <Compile Include="Views\WallView.cs" />
@@ -138,9 +140,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\explosion.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\explosion.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

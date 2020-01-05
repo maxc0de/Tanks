@@ -20,6 +20,7 @@ namespace Tanks
         private List<Apple> apples;
         private List<Tank> tanks;
         private List<Wall> walls;
+        private List<River> rivers;
         private List<Explosion> explosions;
 
         private Direction currentDirection;
@@ -31,6 +32,7 @@ namespace Tanks
             tanks = new List<Tank>();
             apples = new List<Apple>();
             walls = new List<Wall>();
+            rivers = new List<River>();
             explosions = new List<Explosion>();
 
             currentDirection = Direction.Right;
@@ -41,10 +43,32 @@ namespace Tanks
             if (level.Exists)
             {
                 string[] arStr = File.ReadAllLines(level.FullName);
+
+                int y = 0;
                 foreach (string str in arStr)
                 {
-                    int[] f = str.Split(new char[] { ';' }).ToList().Select(s => Convert.ToInt32(s)).ToArray();
-                    walls.AddRange(GetWall(f[0], f[1], f[2], f[3]));
+                    int x = 0;
+                    for (int i = 0; i < str.Length; i++)
+                    {
+                        if(str[i] == 'w')
+                        {
+                            walls.Add(new Wall(x, y, 20, 20, false));
+                        }
+                        else if (str[i] == 'd')
+                        {
+                            walls.Add(new Wall(x, y, 20, 20, true));
+                        }
+                        else if (str[i] == 'r')
+                        {
+                            rivers.Add(new River(x, y, 20, 20));
+                        }
+                        x += 20;
+                    }
+                    y += 20;
+
+
+                    //int[] f = str.Split(new char[] { ';' }).ToList().Select(s => Convert.ToInt32(s)).ToArray();
+                    //walls.AddRange(GetWall(f[0], f[1], f[2], f[3]));
                 }
             }
                           
@@ -70,6 +94,8 @@ namespace Tanks
                 }
             }
 
+
+
             //Проверка взаимодействия со стенами
             for(int i = 0; i < walls.Count; i++)
             {
@@ -81,6 +107,23 @@ namespace Tanks
                 for (int j = 0; j < tanks.Count; j++)
                 {
                     if(CheckCollision(walls[i], tanks[j]))
+                    {
+                        tanks[j].Collision();
+                    }
+                }
+            }
+
+            //Проверка взаимодействия с рекой
+            for (int i = 0; i < rivers.Count; i++)
+            {
+                if (CheckCollision(rivers[i], kolobok))
+                {
+                    kolobok.Collision();
+                }
+
+                for (int j = 0; j < tanks.Count; j++)
+                {
+                    if (CheckCollision(rivers[i], tanks[j]))
                     {
                         tanks[j].Collision();
                     }
@@ -103,7 +146,7 @@ namespace Tanks
                         {
                             kolobok.bullets.Remove(kolobok.bullets[i]);
                             walls[j].hitCount++;
-                            if (walls[j].hitCount >= Wall.strength)
+                            if (walls[j].destructible && walls[j].hitCount >= Wall.strength)
                             {
                                 walls.Remove(walls[j]);
                             }
@@ -180,7 +223,7 @@ namespace Tanks
                             {
                                 tank.bullets.Remove(tank.bullets[i]);
                                 walls[j].hitCount += 1;
-                                if (walls[j].hitCount >= Wall.strength)
+                                if (walls[j].destructible && walls[j].hitCount >= Wall.strength)
                                 {
                                     walls.Remove(walls[j]);
                                 }
@@ -212,7 +255,7 @@ namespace Tanks
                     break;
             }
         }
-        public List<GameObject> GetListGameObjects(bool withBullets)
+        public List<GameObject> GetListGameObjects(bool allObjects)
         {
 
             List<GameObject> gameObjects = new List<GameObject>();
@@ -220,15 +263,15 @@ namespace Tanks
             gameObjects.Add(kolobok);
             gameObjects.AddRange(tanks);
             gameObjects.AddRange(apples);
-            gameObjects.AddRange(explosions);
 
-
-            if(!withBullets)
+            if(!allObjects)
             {
                 return gameObjects;
             }
 
+            gameObjects.AddRange(explosions);
             gameObjects.AddRange(walls);
+            gameObjects.AddRange(rivers);
 
             gameObjects.AddRange(kolobok.bullets);
 
@@ -262,7 +305,15 @@ namespace Tanks
                         break;
                     }
                 }
-                foreach(GameObject obj in objects)
+                for (int i = 0; i < rivers.Count; i++)
+                {
+                    if (CheckCollision(rivers[i], gameObject))
+                    {
+                        noCollision = false;
+                        break;
+                    }
+                }
+                foreach (GameObject obj in objects)
                 {
                     if (CheckCollision(obj, gameObject))
                     {
@@ -298,7 +349,7 @@ namespace Tanks
             {
                 for(int j = 0; j < numY; j++)
                 {
-                    walls.Add(new Wall(x, y, 20, 20));
+                    walls.Add(new Wall(x, y, 20, 20, false));
                     y += 20;
                 }
                 x += 20;
@@ -307,7 +358,6 @@ namespace Tanks
 
             return walls;
         }
-
         private void RemoveExp(Explosion explosion)
         {
             explosions.Remove(explosion);

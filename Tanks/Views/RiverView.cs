@@ -7,31 +7,21 @@ using System.Threading.Tasks;
 
 namespace Tanks
 {
-    class WallView : GameObjectView
+    class RiverView : GameObjectView
     {
         Bitmap bmp;
-        public WallView(int sizeX, int sizeY)
+        public RiverView(int sizeX, int sizeY)
         {
             bmp = new Bitmap(sizeX, sizeY);
 
             using (Graphics gr = Graphics.FromImage(bmp))
             {
                 Rectangle rectangle = new Rectangle(0, 0, sizeX, sizeY);
-                gr.FillRectangle(Brushes.Black, rectangle);
+                gr.FillRectangle(Brushes.Blue, rectangle);
                 gr.DrawRectangle(new Pen(Color.White, 2), rectangle);
             }
         }
-        public WallView(int sizeX, int sizeY, bool destructible)
-        {
-            bmp = new Bitmap(sizeX, sizeY);
 
-            using (Graphics gr = Graphics.FromImage(bmp))
-            {
-                Rectangle rectangle = new Rectangle(0, 0, sizeX, sizeY);
-                gr.FillRectangle(Brushes.DarkRed, rectangle);
-                gr.DrawRectangle(new Pen(Color.White, 2), rectangle);
-            }
-        }
         public override Bitmap GetBitmap()
         {
             return bmp;
